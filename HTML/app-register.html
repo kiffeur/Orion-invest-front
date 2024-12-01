@@ -248,6 +248,22 @@
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault(); // Empêche la redirection par défaut
     
+            // Fonction pour récupérer la valeur d'un paramètre dans l'URL
+            function getUrlParameter(name) {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    return urlParams.get(name);
+                }
+
+                // Récupérer le code d'adhésion à partir de l'URL
+                const membershipCode = getUrlParameter('userReferralCode'); // Le nom du paramètre dans l'URL
+                
+                // Si le code d'adhésion est présent dans l'URL, l'ajouter dans le champ
+                if (membershipCode) {
+                    document.getElementById('membershipCode').value = membershipCode;
+                }
+
+
+
             // Récupérer les données saisies dans le formulaire
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
