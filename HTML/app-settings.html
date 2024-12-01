@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <title>Finapp</title>
+    <meta name="description" content="Finapp HTML Mobile Template">
+    <meta name="keywords" content="bootstrap, wallet, banking, fintech mobile template, cordova, phonegap, mobile, html, responsive" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.png" sizes="32x32">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/icon/192x192.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="manifest" href="__manifest.json">
+</head>
+
+<body>
+
+    <!-- loader -->
+    <div id="loader">
+        <img src="assets/img/loading-icon.png" alt="icon" class="loading-icon">
+    </div>
+    <!-- * loader -->
+
+    <!-- App Header -->
+    <div class="appHeader">
+        <div class="left">
+            <a href="#" class="headerButton goBack">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </a>
+        </div>
+        <div class="pageTitle">
+            Paramètres
+        </div>
+    </div>
+    <!-- * App Header -->
+
+    <!-- App Capsule -->
+    <div id="appCapsule">
+
+        <div class="section mt-3 text-center">
+            <div class="avatar-section">
+                <a href="#">
+                    <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w100 rounded">
+                </a>
+            </div>
+        </div>
+
+        <div class="listview-title mt-1">Theme</div>
+        <ul class="listview image-listview text inset no-line">
+            <li>
+                <div class="item">
+                    <div class="in">
+                        <div>
+                            Dark Mode
+                        </div>
+                        <div class="form-check form-switch  ms-2">
+                            <input class="form-check-input dark-mode-switch" type="checkbox" id="darkmodeSwitch">
+                            <label class="form-check-label" for="darkmodeSwitch"></label>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="section full mt-2">
+            <div class="section-title">Installer l'application</div>
+            <ul class="listview image-listview inset">
+                <li>
+                    <a href="#" class="item" onclick="androidAddtoHome();">
+                        <div class="icon-box bg-success">
+                            <ion-icon name="logo-android"></ion-icon>
+                        </div>
+                        <div class="in">
+                            <div>Android</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="item" onclick="iosAddtoHome();">
+                        <div class="icon-box bg-secondary">
+                            <ion-icon name="logo-apple"></ion-icon>
+                        </div>
+                        <div class="in">
+                            <div>iOS</div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+
+        <!-- iOS Add to Home Action Sheet -->
+        <div class="modal inset fade action-sheet ios-add-to-home" id="ios-add-to-home-screen" tabindex="-1"
+            role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add to Home Screen</h5>
+                        <a href="#" class="close-button" data-bs-dismiss="modal">
+                            <ion-icon name="close"></ion-icon>
+                        </a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="action-sheet-content text-center">
+                            <div class="mb-1"><img src="assets/img/icon/192x192.png" alt="image"
+                                    class="imaged w64 mb-2">
+                            </div>
+                            <div>
+                                Install <strong>Finapp</strong> on your iPhone's home screen.
+                            </div>
+                            <div>
+                                Tap <ion-icon name="share-outline"></ion-icon> and Add to homescreen.
+                            </div>
+                            <div class="mt-2">
+                                <button class="btn btn-primary btn-block" data-bs-dismiss="modal">CLOSE</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- * iOS Add to Home Action Sheet -->
+
+
+        <!-- Android Add to Home Action Sheet -->
+        <div class="modal inset fade action-sheet android-add-to-home" id="android-add-to-home-screen" tabindex="-1"
+            role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add to Home Screen</h5>
+                        <a href="#" class="close-button" data-bs-dismiss="modal">
+                            <ion-icon name="close"></ion-icon>
+                        </a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="action-sheet-content text-center">
+                            <div class="mb-1">
+                                <img src="assets/img/icon/192x192.png" alt="image" class="imaged w64 mb-2">
+                            </div>
+                            <div>
+                                Install <strong>Finapp</strong> on your Android's home screen.
+                            </div>
+                            <div>
+                                Tap <ion-icon name="ellipsis-vertical"></ion-icon> and Add to homescreen.
+                            </div>
+                            <div class="mt-2">
+                                <button class="btn btn-primary btn-block" data-bs-dismiss="modal">CLOSE</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section mt-3 text-center">
+        <button type="button" class="btn btn-primary btn-lg btn-block">Se déconnecter</button>
+        </div>
+
+
+
+
+    </div>
+
+        
+
+    <!-- App Bottom Menu -->
+    <div class="appBottomMenu">
+        <a href="crypto-index.html" class="item">
+            <div class="col">
+                <ion-icon name="home-outline"></ion-icon>
+                <strong>Acceuil</strong>
+            </div>
+        </a>
+        <a href="app-bills.html" class="item">
+            <div class="col">
+                <ion-icon name="cash-sharp"></ion-icon>
+                <strong>Forfaits</strong>
+            </div>
+        </a>
+        <a href="crypto-transactions.html" class="item">
+            <div class="col">
+                <ion-icon name="analytics-outline"></ion-icon>
+                <strong>Transactions</strong>
+            </div>
+        </a>
+        <a href="app-faq.html" class="item ">
+            <div class="col">
+                <ion-icon name="help-circle-outline"></ion-icon>
+                <strong> A propos de nous</strong>
+            </div>
+        </a>
+        <a href="app-settings.html" class="item active">
+            <div class="col">
+                <ion-icon name="settings-outline"></ion-icon>
+                <strong>Settings</strong>
+            </div>
+        </a>
+    </div>
+    <!-- * App Bottom Menu -->
+
+
+    <!-- ========= JS Files =========  -->
+    <!-- Bootstrap -->
+    <script src="assets/js/lib/bootstrap.bundle.min.js"></script>
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- Splide -->
+    <script src="assets/js/plugins/splide/splide.min.js"></script>
+    <!-- Base Js File -->
+    <script src="assets/js/base.js"></script>
+
+
+</body>
+
+</html>

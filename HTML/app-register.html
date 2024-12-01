@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <title>Finapp</title>
+    <meta name="description" content="Finapp HTML Mobile Template">
+    <meta name="keywords" content="bootstrap, wallet, banking, fintech mobile template, cordova, phonegap, mobile, html, responsive" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.png" sizes="32x32">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/icon/192x192.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="manifest" href="__manifest.json">
+</head>
+
+<body>
+
+    <!-- loader -->
+    <div id="loader">
+        <img src="assets/img/loading-icon.png" alt="icon" class="loading-icon">
+    </div>
+    <!-- * loader -->
+
+    <!-- App Header -->
+    <div class="appHeader no-border transparent position-absolute">
+        <div class="left">
+            <a href="#" class="headerButton goBack">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </a>
+        </div>
+        <div class="pageTitle"></div>
+        <div class="right">
+            <a href="app-login.html" class="headerButton">
+                Se connecter
+            </a>
+        </div>
+    </div>
+    <!-- * App Header -->
+
+    <!-- App Capsule -->
+    <div id="appCapsule">
+        
+        <div class="section mt-2 text-center">
+
+            <div class="mb-1">
+                <img src="assets/img/sample/photo/33.png" alt="image" class="imaged w140">
+            </div>
+
+            <h1>S'inscrire maintenant</h1>
+            <h4>Créer un compte</h4>
+        </div>
+        <div class="section mb-5 p-2">
+            <form id="registerForm">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Nom -->
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label" for="name">Nom</label>
+                                <input type="text" class="form-control" id="name" placeholder="Votre nom">
+                            </div>
+                        </div>
+                
+                        <!-- E-mail -->
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label" for="email">E-mail</label>
+                                <input type="email" class="form-control" id="email" placeholder="Votre e-mail">
+                            </div>
+                        </div>
+                
+                        <!-- Numéro de téléphone avec choix de pays -->
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label" for="phone">Numéro de téléphone</label>
+                                <div class="d-flex">
+                                    <select class="form-control" id="countryCode">
+                                        <option value="+241">🇬🇦 Gabon (+241)</option>
+                                        <option value="+224">🇬🇳 Guinée (+224)</option>
+                                        <option value="+221">🇸🇳 Sénégal (+221)</option>
+                                        <option value="+225">🇨🇮 Côte d'Ivoire (+225)</option>
+                                        <option value="+237">🇨🇲 Cameroun (+237)</option>
+                                    </select>
+                                    <input type="tel" class="form-control" id="phone" placeholder="Votre numéro">
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- Mot de passe -->
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label" for="password">Mot de passe</label>
+                                <input type="password" class="form-control" id="password" placeholder="Votre mot de passe">
+                            </div>
+                        </div>
+                
+                        <!-- Confirmation du mot de passe -->
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label" for="confirmPassword">Confirmer le mot de passe</label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirmez votre mot de passe">
+                            </div>
+                        </div>
+                
+                        <!-- Code d'adhésion -->
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label" for="membershipCode">Code d'adhésion</label>
+                                <input type="text" class="form-control" id="membershipCode" placeholder="Votre code d'adhésion">
+                            </div>
+                        </div>
+                
+                        <!-- Conditions générales -->
+                        <div class="form-check mt-2 mb-1">
+                            <input type="checkbox" class="form-check-input" id="terms">
+                            <label class="form-check-label" for="terms">
+                                J'accepte <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">les termes et conditions</a>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="form-button-group transparent">
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">S'inscrire</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+    <!-- * App Capsule -->
+
+
+    <!-- Terms Modal -->
+    <div class="modal fade modalbox" id="termsModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Termes et Conditions</h5>
+                    <a href="#" data-bs-dismiss="modal">Close</a>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        En investissant dans Orion Invest, vous acceptez de placer votre argent dans des projets
+                        spécifiques tout en acquérant des parts en tant qu'investisseur. 
+                        Ce choix reflète votre engagement à contribuer au développement des initiatives portées par Orion Invest,
+                        tout en espérant une croissance significative de votre capital. 
+                        L'application s'engage, dans la mesure du possible, à optimiser la gestion des fonds pour garantir 
+                        une évolution favorable de vos investissements durant la période définie pour chaque projet.
+                    </p>
+                    <p>
+                        Toutefois, il est essentiel de comprendre que tout investissement comporte des risques.
+                        Orion Invest ne peut garantir un succès absolu ou une rentabilité certaine des projets dans lesquels
+                        vous choisissez d'investir. Les performances financières dépendent de nombreux facteurs, 
+                        dont certains échappent au contrôle de l'application ou de ses gestionnaires. Par conséquent, 
+                        en cas de perte partielle ou totale de votre investissement, Orion Invest décline toute responsabilité.
+                        Vous reconnaissez qu'en investissant, vous acceptez ce risque de manière volontaire et éclairée.
+                    </p>
+                    <p>
+                        Orion Invest met tout en œuvre pour choisir des projets à fort potentiel et pour accompagner chaque 
+                        initiative avec soin et expertise. Cependant, il est important de rappeler que le marché de l'investissement
+                        est soumis à des imprévus, des fluctuations économiques et des aléas propres à chaque secteur d'activité.
+                        Ces éléments peuvent affecter la rentabilité des projets et, par conséquent, la croissance de vos fonds.
+                    </p>
+                    <p>
+                        En rejoignant Orion Invest, vous affirmez avoir pris connaissance de ces conditions et les accepter.
+                        Vous comprenez que votre engagement en tant qu'investisseur repose sur une prise de risque calculée
+                        et que vous seul(e) êtes responsable de votre décision d'investir. Nous vous encourageons à bien évaluer
+                        chaque opportunité et, si nécessaire, à consulter un conseiller financier avant de vous engager.
+                    </p>
+                    <p>
+                        Chez Orion Invest, notre objectif est de vous accompagner au mieux dans votre parcours d'investissement,
+                        tout en vous offrant des opportunités de croissance. Nous restons disponibles pour répondre à toutes vos
+                        questions et vous fournir des informations transparentes sur les projets dans lesquels vous investissez.
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- * Terms Modal -->
+
+
+    <!-- ========= JS Files =========  -->
+    <!-- Bootstrap -->
+    <script src="assets/js/lib/bootstrap.bundle.min.js"></script>
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- Splide -->
+    <script src="assets/js/plugins/splide/splide.min.js"></script>
+    <!-- Base Js File -->
+    <script src="assets/js/base.js"></script>
+
+    <!-- Script de l'api-->
+     <!-- 674895876 -->
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Empêche la redirection par défaut
+    
+            // Récupérer les données saisies dans le formulaire
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const countryCode = document.getElementById('countryCode').value.trim();
+            const phone_number = document.getElementById('phone').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const confirmPassword = document.getElementById('confirmPassword').value.trim();
+            const referrer_code = document.getElementById('membershipCode').value.trim();
+            const termsAccepted = document.getElementById('terms').checked;
+    
+            // Validation de base
+            if (!name || !email || !phone_number || !password || !confirmPassword || !termsAccepted) {
+                alert("Veuillez remplir tous les champs et accepter les termes et conditions.");
+                return;
+            }
+            if (password !== confirmPassword) {
+                alert("Les mots de passe ne correspondent pas.");
+                return;
+            }
+    
+            // Construire le corps de la requête
+            const data = {
+                name,
+                email,
+                phone_number: `${countryCode}${phone}`,
+                password,
+                referrer_code,
+            };
+    
+            try {
+                // Envoyer les données à l'API via une requête POST
+                const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    'Access-Control-Allow-Origin': '*', // Permet d'indiquer l'origine autorisée, bien que ce soit géré côté serveur
+                    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', // Méthodes permises, aussi côté serveur
+                    body: JSON.stringify(data),
+                });
+    
+                // Gérer la réponse
+                const result = await response.json();
+                if (response.ok) {
+                    alert("Inscription réussie !");
+                    // Rediriger l'utilisateur vers une autre page (exemple : app-login.html)
+                    window.location.href = 'app-login.html';
+                } else {
+                    alert(`Erreur : ${result.message || 'Un problème est survenu'}`);
+                }
+            } catch (error) {
+                console.error("Erreur lors de l'envoi des données :", error);
+                alert("Une erreur est survenue. Veuillez réessayer.");
+            }
+        });
+    </script>
+    
+
+
+</body>
+
+</html>

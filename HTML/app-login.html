@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <title>Finapp</title>
+    <meta name="description" content="Finapp HTML Mobile Template">
+    <meta name="keywords" content="bootstrap, wallet, banking, fintech mobile template, cordova, phonegap, mobile, html, responsive" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.png" sizes="32x32">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/icon/192x192.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="manifest" href="__manifest.json">
+</head>
+
+<body>
+
+    <!-- loader -->
+    <div id="loader">
+        <img src="assets/img/loading-icon.png" alt="icon" class="loading-icon">
+    </div>
+    <!-- * loader -->
+
+    <!-- App Header -->
+    <div class="appHeader no-border transparent position-absolute">
+        
+        <div class="pageTitle"></div>
+        <div class="right">
+        </div>
+    </div>
+    <!-- * App Header -->
+
+    <!-- App Capsule -->
+    <div id="appCapsule">
+        <div class="mb-1">
+            <img src="assets/img/sample/photo/33.png" alt="image" class="imaged w140">
+        </div>
+        <br>
+        <div class="section mt-2 text-center">
+
+            <div class="mb-1">
+                <img src="assets/img/sample/photo/24.png" alt="image" class="imaged w180">
+            </div>
+
+        </div>
+
+        <div class="mb-1"></div>
+        <br>
+        <div class="section mt-2 text-left">
+            <h2>Encire heureux de vous revoir :)</h2>
+            <h6>Veuillez entrer vos informations de connexion</h6>
+        </div>
+        <div class="section mb-5 p-2">
+
+            <form id="login-form">
+                <div class="card">
+                    <div class="card-body pb-1">
+                        <!-- Numéro de téléphone -->
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label" for="phone1">Numéro de téléphone</label>
+                                <input type="number" class="form-control" id="phone1" placeholder="Votre numéro de téléphone">
+                                <i class="clear-input">
+                                    <ion-icon name="close-circle"></ion-icon>
+                                </i>
+                            </div>
+                        </div>
+            
+                        <!-- Mot de passe -->
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label" for="password1">Mot de passe</label>
+                                <input type="password" class="form-control" id="password1" autocomplete="off" placeholder="Votre mot de passe">
+                                <i class="clear-input">
+                                    <ion-icon name="close-circle"></ion-icon>
+                                </i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-links mt-2">
+                    <div>
+                        <a href="app-register.html">Créer un compte</a>
+                    </div>
+                    <div class="text-muted">Mot de passe oublié ?</a></div>
+                </div>
+
+                <div class="form-button-group  transparent">
+                    <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit">Se connecter</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+    <!-- * App Capsule -->
+
+
+
+    <!-- ========= JS Files =========  -->
+    <!-- Bootstrap -->
+    <script src="assets/js/lib/bootstrap.bundle.min.js"></script>
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- Splide -->
+    <script src="assets/js/plugins/splide/splide.min.js"></script>
+    <!-- Base Js File -->
+    <script src="assets/js/base.js"></script>
+
+
+    <script>
+// Sélectionne ton formulaire
+const form = document.getElementById('login-form');
+
+// Écoute la soumission du formulaire
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();  // Empêche le rechargement de la page par défaut
+
+    // Récupérer les valeurs des champs de formulaire
+    const phone = document.getElementById('phone1').value;
+    const password = document.getElementById('password1').value;
+
+    // Vérifier si les champs sont remplis
+    if (!phone || !password) {
+        alert('Tous les champs doivent être remplis');
+        return;
+    }
+
+    // Données à envoyer au serveur
+    const data = {
+        identifier: phone,  // Numéro de téléphone ou e-mail
+        password: password
+    };
+
+    try {
+        // Envoie la requête POST au serveur
+        const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        // Si la réponse n'est pas réussie
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Échec de l\'authentification');
+        }
+
+        // Récupérer le token JWT de la réponse
+        const result = await response.json();
+
+        // Vérifie si le token est bien présent
+        if (result.accessToken) {
+            // Stocker le token dans le localStorage
+            localStorage.setItem('authToken', result.accessToken);
+
+            // Afficher un message de succès (facultatif)
+            alert('Connexion réussie !');
+
+            // Rediriger l'utilisateur vers une page protégée
+            window.location.href = 'crypto-index.html';  // Redirection après connexion
+        } else {
+            throw new Error('Token manquant dans la réponse');
+        }
+    } catch (error) {
+        // Afficher une alerte en cas d'erreur
+        console.error('Erreur:', error);
+        alert(error.message || 'Identifiants invalides');
+    }
+});
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
