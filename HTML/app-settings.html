@@ -10,8 +10,7 @@
     <meta name="theme-color" content="#000000">
     <title>Paramètres</title>
     <meta name="description" content="Orion invest , investir c'est grandir">
-    <meta name="keywords"
-        content="Orion fiance app" />
+    <meta name="keywords" content="Orion fiance app" />
     <link rel="icon" type="image/png" href="assets/img/favicon.png" sizes="32x32">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/img/icon/192x192.png">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -42,14 +41,13 @@
     <!-- App Capsule -->
     <div id="appCapsule">
 
-        <div class="section mt-3 text-center">
+        <div class="section mt-3 text-center"> 
             <div class="avatar-section">
-                <a href="#">
-                    <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w100 rounded">
-                </a>
+                <div id="avatar" class="imaged w100 rounded" style="display: flex; align-items: center; justify-content: center; background-color: #1DCC70; color: white; font-size: 24px; font-weight: bold; width: 100px; height: 100px;">
+                    <!-- Initiales dynamiques ajoutées ici -->
+                </div>
             </div>
         </div>
-
         <div class="listview-title mt-1">Theme</div>
         <ul class="listview image-listview text inset no-line">
             <li>
@@ -159,7 +157,7 @@
             </div>
         </div>
         <div class="section mt-3 text-center">
-        <button type="button" class="btn btn-primary btn-lg btn-block">Se déconnecter</button>
+            <button type="button" class="btn btn-primary btn-lg btn-block">Se déconnecter</button>
         </div>
 
 
@@ -167,7 +165,7 @@
 
     </div>
 
-        
+
 
     <!-- App Bottom Menu -->
     <div class="appBottomMenu">
@@ -214,7 +212,42 @@
     <script src="assets/js/plugins/splide/splide.min.js"></script>
     <!-- Base Js File -->
     <script src="assets/js/base.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = localStorage.getItem("authToken");
+            const avatarElement = document.getElementById("avatar");
 
+            try {
+                const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/user/profile', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la récupération du profil utilisateur.');
+                }
+
+                const user = await response.json();
+                const name = user.name || "Utilisateur";
+
+                // Générer les initiales
+                const nameParts = name.split(" ");
+                const initials = nameParts.length > 1
+                    ? `${nameParts[0][0]}${nameParts[1][0]}`.toUpperCase()
+                    : name.slice(0, 2).toUpperCase();
+
+                // Insérer les initiales dans l'avatar
+                avatarElement.textContent = initials;
+            } catch (error) {
+                console.error('Erreur:', error.message);
+                avatarElement.textContent = "??"; // Placeholder en cas d'erreur
+            }
+        });
+
+    </script>
 
 </body>
 
