@@ -136,6 +136,50 @@
 
     </div>
     <!-- * App Capsule -->
+<!-- Modal -->
+<div class="modal fade dialogbox" id="DialogIconedSuccess" data-bs-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-icon text-success">
+                <ion-icon name="checkmark-circle"></ion-icon>
+            </div>
+            <div class="modal-header">
+                <h5 class="modal-title">Succès</h5>
+            </div>
+            <div class="modal-body">
+                Vous avez bien été inscrit.
+            </div>
+            <div class="modal-footer">
+                <div class="btn-inline">
+                    <a href="#" class="btn" data-bs-dismiss="modal">OK</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DialogIconedDanger -->
+<div class="modal fade dialogbox" id="DialogIconedDanger" data-bs-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-icon text-danger">
+                <ion-icon name="close-circle"></ion-icon>
+            </div>
+            <div class="modal-header">
+                <h5 class="modal-title">Erreur</h5>
+            </div>
+            <div class="modal-body">
+                There is something wrong.
+            </div>
+            <div class="modal-footer">
+                <div class="btn-inline">
+                    <a href="#" class="btn" data-bs-dismiss="modal">Fermer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
     <!-- Terms Modal -->
@@ -228,7 +272,7 @@
             const data = {
                 name,
                 email,
-                phone_number: `${countryCode}${phone}`,
+                phone_number,
                 password,
                 referrer_code,
             };
@@ -246,16 +290,42 @@
                 // Gérer la réponse
                 const result = await response.json();
                 if (response.ok) {
-                    alert("Inscription réussie !");
-                    // Rediriger l'utilisateur vers une autre page (exemple : app-login.html)
-                    window.location.href = 'app-login.html';
-                } else {
-                    alert(`Erreur : ${result.message || 'Un problème est survenu'}`);
-                }
+                    // Afficher le modal de succès
+                    const modal = new bootstrap.Modal(document.getElementById('DialogIconedSuccess'));
+                    modal.show();
+
+                    // Rediriger l'utilisateur après 2 secondes (ou toute autre durée que vous préférez)
+                    setTimeout(() => {
+                     window.location.href = 'app-login.html';
+                    }, 3000); // Temps en millisecondes, ici 2000ms = 2 secondes
+                    }
+
+                                else {
+                // Récupérer le modal d'erreur
+                const modalDanger = new bootstrap.Modal(document.getElementById('DialogIconedDanger'));
+
+                // Mettre à jour le message d'erreur dans le modal
+                const modalBody = document.querySelector('#DialogIconedDanger .modal-body');
+                modalBody.textContent = result.message || 'Un problème est survenu';
+
+                // Afficher le modal
+                modalDanger.show();
+            }
+
             } catch (error) {
                 console.error("Erreur lors de l'envoi des données :", error);
-                alert("Une erreur est survenue. Veuillez réessayer.");
+
+                // Récupérer le modal d'erreur
+                const modalDanger = new bootstrap.Modal(document.getElementById('DialogIconedDanger'));
+
+                // Mettre à jour le message d'erreur dans le modal
+                const modalBody = document.querySelector('#DialogIconedDanger .modal-body');
+                modalBody.textContent = "Une erreur est survenue. Veuillez réessayer.";
+
+                // Afficher le modal
+                modalDanger.show();
             }
+
         });
     </script>
     

@@ -102,6 +102,49 @@
     </div>
     <!-- * App Capsule -->
 
+<!-- DialogIconedSuccess -->
+<div class="modal fade dialogbox" id="DialogIconedSuccess" data-bs-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-icon text-success">
+                <ion-icon name="checkmark-circle"></ion-icon>
+            </div>
+            <div class="modal-header">
+                <h5 class="modal-title">Success</h5>
+            </div>
+            <div class="modal-body">
+                Connexion réussie !
+            </div>
+            <div class="modal-footer">
+                <div class="btn-inline">
+                    <a href="#" class="btn" data-bs-dismiss="modal">CLOSE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DialogIconedDanger -->
+<div class="modal fade dialogbox" id="DialogIconedDanger" data-bs-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-icon text-danger">
+                <ion-icon name="close-circle"></ion-icon>
+            </div>
+            <div class="modal-header">
+                <h5 class="modal-title">Error</h5>
+            </div>
+            <div class="modal-body">
+                Une erreur est survenue.
+            </div>
+            <div class="modal-footer">
+                <div class="btn-inline">
+                    <a href="#" class="btn" data-bs-dismiss="modal">CLOSE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
     <!-- ========= JS Files =========  -->
@@ -149,31 +192,40 @@ form.addEventListener('submit', async (e) => {
 
         // Si la réponse n'est pas réussie
         if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.message || 'Échec de l\'authentification');
-        }
+    const error = await response.json();
+    throw new Error(error.message || 'Échec de l\'authentification');
+}
 
-        // Récupérer le token JWT de la réponse
-        const result = await response.json();
+const result = await response.json();
 
-        // Vérifie si le token est bien présent
-        if (result.accessToken) {
-            // Stocker le token dans le localStorage
-            localStorage.setItem('authToken', result.accessToken);
+// Vérifie si le token est bien présent
+if (result.accessToken) {
+    // Stocker le token dans le localStorage
+    localStorage.setItem('authToken', result.accessToken);
 
-            // Afficher un message de succès (facultatif)
-            alert('Connexion réussie !');
+    // Afficher un modal de succès
+    const modalSuccess = new bootstrap.Modal(document.getElementById('DialogIconedSuccess'));
+    const modalBody = document.querySelector('#DialogIconedSuccess .modal-body');
+    modalBody.textContent = 'Connexion réussie !'; // Mettre à jour le message
+    modalSuccess.show();
 
-            // Rediriger l'utilisateur vers une page protégée
-            window.location.href = 'crypto-index.html';  // Redirection après connexion
-        } else {
-            throw new Error('Token manquant dans la réponse');
-        }
-    } catch (error) {
-        // Afficher une alerte en cas d'erreur
-        console.error('Erreur:', error);
-        alert(error.message || 'Identifiants invalides');
-    }
+    // Rediriger l'utilisateur après un court délai (optionnel)
+    setTimeout(() => {
+        window.location.href = 'index.html'; // Page protégée
+    }, 2000);
+} else {
+    throw new Error('Token manquant dans la réponse');
+}
+} catch (error) {
+    console.error('Erreur:', error);
+
+    // Afficher un modal d'erreur
+    const modalDanger = new bootstrap.Modal(document.getElementById('DialogIconedDanger'));
+    const modalBody = document.querySelector('#DialogIconedDanger .modal-body');
+    modalBody.textContent = error.message || 'Identifiants invalides'; // Mettre à jour le message
+    modalDanger.show();
+}
+
 });
 
 

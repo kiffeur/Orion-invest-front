@@ -630,6 +630,30 @@
     <!-- * App Sidebar -->
 
 
+    <!-- Modal Session Expired -->
+<div class="modal fade dialogbox" id="DialogSessionExpired" data-bs-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-icon text-warning">
+                <ion-icon name="alert-circle"></ion-icon>
+            </div>
+            <div class="modal-header">
+                <h5 class="modal-title">Session Expirée</h5>
+            </div>
+            <div class="modal-body">
+                Votre session a expiré. Veuillez vous reconnecter.
+            </div>
+            <div class="modal-footer">
+                <div class="btn-inline">
+                    <a href="component-fullpage-slider.html" class="btn">SE CONNECTER</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
     <!-- ========= JS Files =========  -->
     <!-- Bootstrap -->
@@ -746,10 +770,18 @@ async function getUserProfile() {
     const token = localStorage.getItem('authToken');
 
     if (!token) {
-        alert('Votre session a expiré.');
-        window.location.href = 'component-fullpage-slider.html'; // Redirige vers le slider
-        return;
-    }
+    // Afficher le modal de session expirée
+    const modalExpired = new bootstrap.Modal(document.getElementById('DialogSessionExpired'));
+    modalExpired.show();
+
+    // Optionnel : Rediriger automatiquement après un court délai
+    setTimeout(() => {
+        window.location.href = 'component-fullpage-slider.html'; // Redirige vers la page de connexion
+    }, 3000);
+
+    return;
+}
+
 
     try {
         const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/user/profile', {
