@@ -1497,7 +1497,7 @@ a.badge-dark {
 
 .image-listview > li .item .icon-box.transparent {
   font-size: 28px;
-  color: #6236FF;
+  color: #efd384;
 }
 
 .image-listview > li .item .in {
@@ -2443,7 +2443,7 @@ a.badge-dark {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #6236FF;
+  color: #efd384;
 }
 
 .accordion .accordion-header.bg-primary .accordion-button, .accordion .accordion-header.bg-secondary .accordion-button, .accordion .accordion-header.bg-success .accordion-button, .accordion .accordion-header.bg-warning .accordion-button, .accordion .accordion-header.bg-danger .accordion-button, .accordion .accordion-header.bg-warning .accordion-button, .accordion .accordion-header.bg-info .accordion-button, .accordion .accordion-header.bg-dark .accordion-button {
@@ -3159,9 +3159,9 @@ a.text-dark {
 }
 
 .alert-primary {
-  background: #6236FF;
+  background: #efd384;
   color: #fff;
-  border: 1px solid #6236FF;
+  border: 1px solid #efd384;
 }
 
 .alert-primary a {

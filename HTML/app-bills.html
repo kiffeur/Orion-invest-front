@@ -48,26 +48,16 @@
                 <h5 class="title">  Forfaits recommandés</h5>
                 <a href="app-blog.html" class="link">Voir tout</a>
             </div>
-                     <!-- carousel multiple -->
-            <div class="carousel-multiple splide">
+        <!-- carousel multiple -->
+
+        <div class="carousel-multiple splide">
             <div class="splide__track">
                 <ul class="splide__list">
-    
-                 <li class="splide__slide">
-    
-                            <a href="app-blog-post.html">
-                                <div class="blog-card">
-                                    <img src="assets/img/sample/photo/1.jpg" alt="image" class="imaged w-100">
-                                    <div class="text">
-                                        <h4 class="title">What will be the value of bitcoin in the next...</h4>
-                                    </div>
-                                </div>
-                            </a>
-                 </li>
-    
+                    <!-- Les packages seront insérés ici dynamiquement -->
                 </ul>
             </div>
         </div>
+         
         </div>
 
             
@@ -178,6 +168,65 @@
     <script src="assets/js/plugins/splide/splide.min.js"></script>
     <!-- Base Js File -->
     <script src="assets/js/base.js"></script>
+    <script>
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const apiUrl = 'https://lionfish-app-54bdv.ondigitalocean.app/packages/list'; // Endpoint de l'API
+    const carouselList = document.querySelector('.splide__list');
+
+    try {
+        // Appeler l'API pour récupérer les packages disponibles
+        const response = await fetch(apiUrl);
+
+        if (!response.ok) {
+            throw new Error('Échec de la récupération des packages');
+        }
+
+        const packages = await response.json(); // Récupérer la réponse JSON
+        console.log(packages);
+
+        // Vérifier si des packages sont disponibles
+        if (packages.length === 0) {
+            carouselList.innerHTML = '<p>Aucun package disponible pour le moment.</p>';
+            return;
+        }
+
+        // Générer les éléments dynamiques pour chaque package
+        packages.forEach((pkg) => {
+            const listItem = document.createElement('li');
+            listItem.className = 'splide__slide';
+
+            listItem.innerHTML = `
+                <a href="package-details.html?id=${pkg.id}">
+                        <div class="mb-1">
+                        <img src="${pkg.image}" class="imaged w-100">    
+                    </div>
+                </a>
+            `;
+
+            // Ajouter l'élément au carousel
+            carouselList.appendChild(listItem);
+        });
+
+        // Initialiser le carousel (si nécessaire)
+        if (typeof Splide !== 'undefined') {
+            new Splide('.carousel-multiple', {
+                type: 'loop',
+                perPage: 3,
+                gap: '1rem',
+            }).mount();
+        }
+    } catch (error) {
+        console.error('Erreur lors de la récupération des packages :', error);
+        alert('Impossible de charger les packages pour le moment.');
+    }
+});
+
+
+
+
+
+    </script>
 
 
 </body>
