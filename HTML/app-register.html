@@ -247,20 +247,42 @@
     <script>
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault(); // Empêche la redirection par défaut
-    
-            // Fonction pour récupérer la valeur d'un paramètre dans l'URL
-            function getUrlParameter(name) {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    return urlParams.get(name);
-                }
 
-                // Récupérer le code d'adhésion à partir de l'URL
-                const membershipCode = getUrlParameter('userReferralCode'); // Le nom du paramètre dans l'URL
-                
-                // Si le code d'adhésion est présent dans l'URL, l'ajouter dans le champ
-                if (membershipCode) {
-                    document.getElementById('membershipCode').value = membershipCode;
-                }
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+    // Fonction pour récupérer un paramètre d'URL par son nom
+    function getUrlParameter(name) {
+        const regex = new RegExp('[?&]' + name + '=([^&#]*)');
+        const results = regex.exec(window.location.href);
+        if (results === null) {
+            return null;  // Si le paramètre n'est pas trouvé, retourne null
+        } else {
+            return decodeURIComponent(results[1].replace(/\+/g, ' '));  // Décodage du paramètre
+        }
+    }
+
+    // Récupérer la valeur de 'userReferralCode' depuis l'URL
+    const userReferralCode = getUrlParameter('userReferralCode');
+    
+    // Vérification dans la console
+    console.log("Code de parrainage récupéré :", userReferralCode); // Log pour voir la valeur récupérée
+
+    // Si un code est trouvé dans l'URL, le placer dans le champ de texte
+    if (userReferralCode) {
+        const inputField = document.getElementById('membershipCode');
+        
+        // Vérification de la présence du champ
+        if (inputField) {
+            inputField.value = userReferralCode;
+            console.log("Le code d'adhésion a été inséré dans le champ."); // Log pour vérifier que l'input a été modifié
+        } else {
+            console.log("Erreur : champ d'entrée non trouvé.");
+        }
+    } else {
+        console.log("Aucun code de parrainage trouvé dans l'URL.");
+    }
+});
 
 
 
