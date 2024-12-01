@@ -147,12 +147,12 @@
             const iconClass = transaction.type === "deposit" ? "bg-success" : transaction.type === "withdrawal" ? "bg-danger" : "bg-warning";
             const statusClass = transaction.status === "completed" ? "text-success" : transaction.status === "pending" ? "text-warning" : "text-danger";
             const typeLabel = transaction.type === "deposit" ? "Dépôt" : transaction.type === "withdrawal" ? "Retrait" : "Achat";
-
+            const iconName = transaction.type === "deposit" ? "arrow-up-outline": transaction.type === "withdrawal" || transaction.type === "package_purchase"? "arrow-down-outline": "help-outline";
             return `
               <li>
                 <a href="#" class="item">
                   <div class="icon-box ${iconClass}">
-                    <ion-icon name="arrow-up-outline"></ion-icon>
+                    <ion-icon name="${iconName}"></ion-icon>
                   </div>
                   <div class="in">
                     <div>
