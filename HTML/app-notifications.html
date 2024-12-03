@@ -55,17 +55,8 @@
     <div id="appCapsule">
 
         <div class="listview-title mt-2">Personne que vous avez parrainé</div>
-        <ul class="listview image-listview">
-            <li>
-                <a href="#" class="item">
-                    <div class="in">
-                        <div>
-                            John Fonseca
-                            <footer>Florida</footer>
-                        </div>
-                    </div>
-                </a>
-            </li>
+        <ul class="listview image-listview" id="referralsList">
+
         </ul>
 
     </div>
@@ -117,6 +108,66 @@
     <script src="assets/js/plugins/splide/splide.min.js"></script>
     <!-- Base Js File -->
     <script src="assets/js/base.js"></script>
+
+    <script>
+
+// Sélectionne le conteneur pour la liste des filleuls
+const referralsList = document.querySelector('#referralsList');
+
+// Fonction pour récupérer et afficher les filleuls
+async function fetchReferrals() {
+    try {
+        // Appel API pour récupérer les filleuls
+        const token = localStorage.getItem('authToken'); // Supposez que le token JWT est stocké dans localStorage
+
+        if (!token) {
+            referralsList.innerHTML = '<li><div class="in">Vous devez être connecté pour voir vos filleuls.</div></li>';
+            return;
+        }
+
+        const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/user/referrals', {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la récupération des filleuls.');
+        }
+
+        const referrals = await response.json();
+
+        // Vérifie si des filleuls sont disponibles
+        if (referrals.length === 0) {
+            referralsList.innerHTML = '<li><div class="in">Aucun filleul trouvé.</div></li>';
+            return;
+        }
+
+        // Génère le contenu HTML pour chaque filleul
+        referralsList.innerHTML = referrals.map(referral => `
+            <li>
+                <a href="#" class="item">
+                    <div class="in">
+                        <div>
+                            ${referral.name || 'Utilisateur Anonyme'}
+                            <footer>${referral.phone_number || 'Numéro inconnu'}</footer>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        `).join('');
+    } catch (error) {
+        console.error('Erreur lors de la récupération des filleuls :', error);
+        referralsList.innerHTML = '<li><div class="in">Erreur lors de la récupération des données.</div></li>';
+    }
+}
+
+// Appelle la fonction pour afficher les filleuls
+fetchReferrals();
+
+    </script>
 
 
 </body>
