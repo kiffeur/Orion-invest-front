@@ -606,7 +606,6 @@ async function getUserProfile() {
         const userName = document.getElementById('userName');
         const userPhone = document.getElementById('userPhone');
         const totalwithdraw = document.getElementById('totalwithdraw');
-        TotalWithdraw
 
         userBalance.innerHTML = userData.balance  + " FCFA";
         userBalance1.innerHTML = userData.balance  + " FCFA";
@@ -628,9 +627,9 @@ async function getUserProfile() {
  * Gère les données du profil utilisateur
  * @param {Object} userData - Données utilisateur récupérées
  */
-function handleUserProfile(userData) {
+ function handleUserProfile(userData) {
     const userReferralCode = userData.referral_code;
-    const currentUrl = "http://127.0.0.1:5500/HTML/app-register.html";
+    const currentUrl = window.location.origin + "/app-register"; // Ajouter la route "/app-register"
     const shareLink = document.getElementById("shareLink");
 
     // Construire l'URL de parrainage
@@ -644,13 +643,14 @@ function handleUserProfile(userData) {
     });
 }
 
+
+
 /**
  * Gère les sessions invalides ou expirées
  */
 function handleInvalidSession() {
     localStorage.removeItem('authToken'); // Supprime le token invalide
-    const modalExpired = new bootstrap.Modal(document.getElementById('DialogSessionExpired'));
-    modalExpired.show();
+    showAlert('info','Session expiré : vous devez vous reconecter');
 
     // Redirection après 3 secondes
     setTimeout(() => {
@@ -669,7 +669,8 @@ function copyToClipboard(url) {
     tempInput.select();
     document.execCommand("copy");
     document.body.removeChild(tempInput);
-    alert('Lien copié dans le presse-papier.');
+    showAlert('info', 'Votre lien a été copié.');
+
 }
 
 /**
