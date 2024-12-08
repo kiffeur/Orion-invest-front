@@ -102,49 +102,26 @@
     </div>
     <!-- * App Capsule -->
 
-<!-- DialogIconedSuccess -->
-<div class="modal fade dialogbox" id="DialogIconedSuccess" data-bs-backdrop="static" tabindex="-1" role="dialog">
+<!--Component Dialog-->
+<div class="modal fade dialogbox" id="alertModal" data-bs-backdrop="static" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-icon text-success">
-                <ion-icon name="checkmark-circle"></ion-icon>
+            <div class="modal-icon" id="alertModalIcon">
+                <ion-icon name="information-circle"></ion-icon>
             </div>
             <div class="modal-header">
-                <h5 class="modal-title">Success</h5>
+                <h5 class="modal-title" id="alertModalTitle">Info</h5>
             </div>
-            <div class="modal-body">
-                Connexion réussie !
-            </div>
+            <div class="modal-body" id="alertModalMessage">Ceci est un message d'information.</div>
             <div class="modal-footer">
                 <div class="btn-inline">
-                    <a href="#" class="btn" data-bs-dismiss="modal">CLOSE</a>
+                    <a href="#" class="btn" data-bs-dismiss="modal">FERMER</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- DialogIconedDanger -->
-<div class="modal fade dialogbox" id="DialogIconedDanger" data-bs-backdrop="static" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-icon text-danger">
-                <ion-icon name="close-circle"></ion-icon>
-            </div>
-            <div class="modal-header">
-                <h5 class="modal-title">Error</h5>
-            </div>
-            <div class="modal-body">
-                Une erreur est survenue.
-            </div>
-            <div class="modal-footer">
-                <div class="btn-inline">
-                    <a href="#" class="btn" data-bs-dismiss="modal">CLOSE</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<!--Component Dialog-->
 
 
     <!-- ========= JS Files =========  -->
@@ -159,16 +136,16 @@
 
 
     <script>
-// Sélectionne ton formulaire
+// Sélectionne le formulaire
 const form = document.getElementById('login-form');
 
 // Écoute la soumission du formulaire
 form.addEventListener('submit', async (e) => {
-    e.preventDefault();  // Empêche le rechargement de la page par défaut
+    e.preventDefault(); // Empêche le rechargement de la page par défaut
 
     // Récupérer les valeurs des champs de formulaire
-    const phone = document.getElementById('phone1').value;
-    const password = document.getElementById('password1').value;
+    const phone = document.getElementById('phone1').value.trim();
+    const password = document.getElementById('password1').value.trim();
 
     // Vérifier si les champs sont remplis
     if (!phone || !password) {
@@ -178,7 +155,7 @@ form.addEventListener('submit', async (e) => {
 
     // Données à envoyer au serveur
     const data = {
-        identifier: phone,  // Numéro de téléphone ou e-mail
+        identifier: phone, // Numéro de téléphone ou e-mail
         password: password
     };
 
@@ -192,41 +169,117 @@ form.addEventListener('submit', async (e) => {
 
         // Si la réponse n'est pas réussie
         if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Échec de l\'authentification');
-}
+            const error = await response.json();
+            throw new Error(error.message || "Échec de l'authentification");
+        }
 
-const result = await response.json();
+        const result = await response.json();
 
-// Vérifie si le token est bien présent
-if (result.accessToken) {
-    // Stocker le token dans le localStorage
-    localStorage.setItem('authToken', result.accessToken);
+        // Vérifie si le token est bien présent
+        if (result.accessToken) {
+            // Stocker le token dans le localStorage
+            localStorage.setItem('authToken', result.accessToken);
 
-    // Afficher un modal de succès
-    const modalSuccess = new bootstrap.Modal(document.getElementById('DialogIconedSuccess'));
-    const modalBody = document.querySelector('#DialogIconedSuccess .modal-body');
-    modalBody.textContent = 'Connexion réussie !'; // Mettre à jour le message
-    modalSuccess.show();
-
-    // Rediriger l'utilisateur après un court délai (optionnel)
-    setTimeout(() => {
-        window.location.href = 'index.html'; // Page protégée
-    }, 2000);
-} else {
-    throw new Error('Token manquant dans la réponse');
-}
-} catch (error) {
-    console.error('Erreur:', error);
-
-    // Afficher un modal d'erreur
-    const modalDanger = new bootstrap.Modal(document.getElementById('DialogIconedDanger'));
-    const modalBody = document.querySelector('#DialogIconedDanger .modal-body');
-    modalBody.textContent = error.message || 'Identifiants invalides'; // Mettre à jour le message
-    modalDanger.show();
-}
-
+            // Appeler la fonction pour récupérer le profil utilisateur
+            await getUserProfile();
+        } else {
+            throw new Error('Token non reçu.');
+        }
+    } catch (error) {
+        alert(`Erreur : ${error.message}`);
+    }
 });
+
+// Fonction pour récupérer le profil utilisateur
+async function getUserProfile() {
+    const token = localStorage.getItem('authToken');
+
+    try {
+        const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/user/profile', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        });
+
+        // Vérification de la réponse
+        if (!response.ok) {
+            if (response.status === 403) {
+                handleInvalidSession();
+                return;
+            }
+            throw new Error('Erreur lors de la récupération du profil utilisateur.');
+        }
+
+        const userProfile = await response.json();
+
+        // Stocker l'ID utilisateur dans le localStorage
+        if (userProfile && userProfile.id) {
+            localStorage.setItem('userId', userProfile.id);
+            showAlert('success',`Bienvenue, ${userProfile.name || "utilisateur"} !`);
+
+        // Redirection après 3 secondes
+        setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 3000); // 3000 millisecondes = 3 secondes       
+            } 
+     
+     else {
+            throw new Error('Profil utilisateur incomplet.');
+        }
+    } catch (error) {
+        showAlert('error',`Erreur : ${error.message}`);
+    }
+}
+
+// Gestion de session invalide
+function handleInvalidSession() {
+    showAlert('info', 'Votre session a expiré. Veuillez vous reconnecter..');
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userId');
+    // Redirige l'utilisateur vers la page de connexion
+    window.location.href = 'component-fullpage-slider.html';
+}
+
+/**
+ * Fonction pour Message d'alerte
+ */
+ function showAlert(type, message) {
+    // Sélectionner les éléments de la modal
+    const modalTitle = document.getElementById('alertModalTitle');
+    const modalMessage = document.getElementById('alertModalMessage');
+    const modalIcon = document.getElementById('alertModalIcon');
+
+    // Personnaliser la modal en fonction du type
+    switch (type) {
+        case 'success':
+            modalTitle.textContent = 'Succès';
+            modalMessage.textContent = message;
+            modalIcon.innerHTML = '<ion-icon name="checkmark-circle"></ion-icon>';
+            modalIcon.className = 'modal-icon text-success';
+            break;
+
+        case 'error':
+            modalTitle.textContent = 'Erreur';
+            modalMessage.textContent = message;
+            modalIcon.innerHTML = '<ion-icon name="alert-circle"></ion-icon>';
+            modalIcon.className = 'modal-icon text-danger';
+            break;
+
+        case 'info':
+        default:
+            modalTitle.textContent = 'Info';
+            modalMessage.textContent = message;
+            modalIcon.innerHTML = '<ion-icon name="information-circle"></ion-icon>';
+            modalIcon.className = 'modal-icon text-primary';
+            break;
+    }
+
+    // Afficher la modal
+    const modal = new bootstrap.Modal(document.getElementById('alertModal'));
+    modal.show();
+}
 
 
 

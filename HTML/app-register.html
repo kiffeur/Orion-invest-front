@@ -137,49 +137,26 @@
     </div>
     <!-- * App Capsule -->
 <!-- Modal -->
-<div class="modal fade dialogbox" id="DialogIconedSuccess" data-bs-backdrop="static" tabindex="-1" role="dialog">
+<!--Component Dialog-->
+<div class="modal fade dialogbox" id="alertModal" data-bs-backdrop="static" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-icon text-success">
-                <ion-icon name="checkmark-circle"></ion-icon>
+            <div class="modal-icon" id="alertModalIcon">
+                <ion-icon name="information-circle"></ion-icon>
             </div>
             <div class="modal-header">
-                <h5 class="modal-title">Succès</h5>
+                <h5 class="modal-title" id="alertModalTitle">Info</h5>
             </div>
-            <div class="modal-body">
-                Vous avez bien été inscrit.
-            </div>
+            <div class="modal-body" id="alertModalMessage">Ceci est un message d'information.</div>
             <div class="modal-footer">
                 <div class="btn-inline">
-                    <a href="#" class="btn" data-bs-dismiss="modal">OK</a>
+                    <a href="#" class="btn" data-bs-dismiss="modal">FERMER</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- DialogIconedDanger -->
-<div class="modal fade dialogbox" id="DialogIconedDanger" data-bs-backdrop="static" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-icon text-danger">
-                <ion-icon name="close-circle"></ion-icon>
-            </div>
-            <div class="modal-header">
-                <h5 class="modal-title">Erreur</h5>
-            </div>
-            <div class="modal-body">
-                There is something wrong.
-            </div>
-            <div class="modal-footer">
-                <div class="btn-inline">
-                    <a href="#" class="btn" data-bs-dismiss="modal">Fermer</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+<!--Component Dialog-->
 
 
     <!-- Terms Modal -->
@@ -298,11 +275,13 @@
     
             // Validation de base
             if (!name || !email || !phone_number || !password || !confirmPassword || !termsAccepted) {
-                alert("Veuillez remplir tous les champs et accepter les termes et conditions.");
+                showAlert('info',`Veuillez remplir tous les champs et accepter les termes et conditions.`);
+
                 return;
             }
             if (password !== confirmPassword) {
-                alert("Les mots de passe ne correspondent pas.");
+                showAlert('info',`Les mots de passe ne correspondent pas.`);
+
                 return;
             }
     
@@ -328,10 +307,8 @@
                 // Gérer la réponse
                 const result = await response.json();
                 if (response.ok) {
-                    // Afficher le modal de succès
-                    const modal = new bootstrap.Modal(document.getElementById('DialogIconedSuccess'));
-                    modal.show();
 
+                    showAlert('Succès',`Inscription réeussi avec succès`);
                     // Rediriger l'utilisateur après 2 secondes (ou toute autre durée que vous préférez)
                     setTimeout(() => {
                      window.location.href = 'app-login.html';
@@ -339,32 +316,56 @@
                     }
 
                                 else {
-                // Récupérer le modal d'erreur
-                const modalDanger = new bootstrap.Modal(document.getElementById('DialogIconedDanger'));
+                                    showAlert('error',`Un problème est survenu , veuillez réessayer`);
 
-                // Mettre à jour le message d'erreur dans le modal
-                const modalBody = document.querySelector('#DialogIconedDanger .modal-body');
-                modalBody.textContent = result.message || 'Un problème est survenu';
-
-                // Afficher le modal
-                modalDanger.show();
             }
 
             } catch (error) {
                 console.error("Erreur lors de l'envoi des données :", error);
-
-                // Récupérer le modal d'erreur
-                const modalDanger = new bootstrap.Modal(document.getElementById('DialogIconedDanger'));
-
-                // Mettre à jour le message d'erreur dans le modal
-                const modalBody = document.querySelector('#DialogIconedDanger .modal-body');
-                modalBody.textContent = "Une erreur est survenue. Veuillez réessayer.";
-
-                // Afficher le modal
-                modalDanger.show();
+                showAlert('error',`Erreur : ${error.message}`);
             }
 
         });
+
+/**
+ * Fonction pour Message d'alerte
+ */
+ function showAlert(type, message) {
+    // Sélectionner les éléments de la modal
+    const modalTitle = document.getElementById('alertModalTitle');
+    const modalMessage = document.getElementById('alertModalMessage');
+    const modalIcon = document.getElementById('alertModalIcon');
+
+    // Personnaliser la modal en fonction du type
+    switch (type) {
+        case 'success':
+            modalTitle.textContent = 'Succès';
+            modalMessage.textContent = message;
+            modalIcon.innerHTML = '<ion-icon name="checkmark-circle"></ion-icon>';
+            modalIcon.className = 'modal-icon text-success';
+            break;
+
+        case 'error':
+            modalTitle.textContent = 'Erreur';
+            modalMessage.textContent = message;
+            modalIcon.innerHTML = '<ion-icon name="alert-circle"></ion-icon>';
+            modalIcon.className = 'modal-icon text-danger';
+            break;
+
+        case 'info':
+        default:
+            modalTitle.textContent = 'Info';
+            modalMessage.textContent = message;
+            modalIcon.innerHTML = '<ion-icon name="information-circle"></ion-icon>';
+            modalIcon.className = 'modal-icon text-primary';
+            break;
+    }
+
+    // Afficher la modal
+    const modal = new bootstrap.Modal(document.getElementById('alertModal'));
+    modal.show();
+}
+
     </script>
     
 

@@ -83,7 +83,7 @@
                 <div class="col-6">
                     <div class="stat-box">
                         <div class="title" align="center">Total retraits</div>
-                        <div class="value text-danger" align="center">chargement...</div>
+                        <div class="value text-danger" align="center" id="totalwithdraw">chargement...</div>
                     </div>
                 </div>
             </div>
@@ -107,7 +107,7 @@
                                         <div class="exchange-group small">
                                             <div class="input-col">
                                                 <input type="text" class="form-control form-control-lg pe-0"
-                                                    id="phone" placeholder="0" value="380" maxlength="14">
+                                                    id="phone" placeholder="votre numéro de téléphone" maxlength="14">
                                             </div>
                                         </div>
                                     </div>
@@ -119,48 +119,64 @@
                                         <div class="exchange-group small">
                                             <div class="input-col">
                                                 <input type="text" class="form-control form-control-lg pe-0"
-                                                       id="depositAmount" placeholder="entrer le montant">
+                                                       id="depositAmount" placeholder="entrer le montant" value="2000">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
-                                <div class="card-body pt-0">
 
-                                    <ul class="nav nav-tabs lined" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" data-bs-toggle="tab" href="#overview2" role="tab">
-                                                Overview
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-bs-toggle="tab" href="#cards2" role="tab">
-                                                Cards
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-bs-toggle="tab" href="#settings2" role="tab">
-                                                Settings
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content mt-2">
-                                        <div class="tab-pane fade show active" id="overview2" role="tabpanel">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vulputate enim sed elit
-                                            consequat, sed ultricies ligula venenatis. In nec arcu eget neque sodales accumsan vel
-                                            et neque.
-                                        </div>
-                                        <div class="tab-pane fade" id="cards2" role="tabpanel">
-                                            Suspendisse maximus ligula eu ligula iaculis, eu bibendum odio dignissim. Pellentesque
-                                            elementum nisl elit, non feugiat risus luctus sit amet.
-                                        </div>
-                                        <div class="tab-pane fade" id="settings2" role="tabpanel">
-                                            Vestibulum sed facilisis diam, vel sodales leo. Aenean lacinia, nisi sit amet iaculis
-                                            maximus, nibh orci iaculis risus, vitae faucibus dui orci quis elit.
+                                <div class="form-group basic">
+                                    <div class="input-wrapper">
+                                        <label class="label" for="depositAmount">ID de transaction</label>
+                                        <div class="exchange-group small">
+                                            <div class="input-col">
+                                                <input type="text" class="form-control form-control-lg pe-0"
+                                                       id="transactionId" placeholder="Insérer l'ID de votre transaction">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+
+
+                                <div class="section mt-3">
+                                    <div class="section-title">Comment faire ?</div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <ul class="nav nav-tabs capsuled" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" data-bs-toggle="tab" href="#overview" role="tab">
+                                                        Cameroun 🇨🇲 
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#card" role="tab">
+                                                        Gabon 🇬🇦
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#settings" role="tab">
+                                                        Autres 🇨🇬🇹🇩🇨🇫
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content mt-1">
+                                                <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vulputate enim sed elit
+                                                    consequat, sed ultricies ligula venenatis. In nec arcu eget neque sodales accumsan vel
+                                                    et neque.
+                                                </div>
+                                                <div class="tab-pane fade" id="card" role="tabpanel">
+                                                    Suspendisse maximus ligula eu ligula iaculis, eu bibendum odio dignissim. Pellentesque
+                                                    elementum nisl elit, non feugiat risus luctus sit amet.
+                                                </div>
+                                                <div class="tab-pane fade" id="settings" role="tabpanel">
+                                                    Vestibulum sed facilisis diam, vel sodales leo. Aenean lacinia, nisi sit amet iaculis
+                                                    maximus, nibh orci iaculis risus, vitae faucibus dui orci quis elit.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 
 
                                 <div class="mt-2">
@@ -218,56 +234,6 @@
             </div>
         </div>
         <!-- * Withdraw Action Sheet-->
-        <!-- Send Action Sheet -->
-        <div class="modal fade action-sheet" id="sendActionSheet" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Send</h5>
-                    </div>
-                    <div class="modal-body">
-                        <div class="action-sheet-content">
-                            <form>
-                                <div class="form-group basic mb-2">
-                                    <div class="input-wrapper">
-                                        <label class="label" for="walletaddress">Wallet Address</label>
-                                        <input type="email" class="form-control" id="walletaddress"
-                                            placeholder="Enter a wallet address">
-                                        <i class="clear-input">
-                                            <ion-icon name="close-circle"></ion-icon>
-                                        </i>
-                                    </div>
-                                </div>
-                                <div class="form-group basic">
-                                    <div class="input-wrapper">
-                                        <label class="label" for="sendAmount">Enter Amount</label>
-                                        <div class="exchange-group small">
-                                            <div class="input-col">
-                                                <input type="text" class="form-control form-control-lg pe-0"
-                                                    id="sendAmount" placeholder="0" value="380" maxlength="14">
-                                            </div>
-                                            <div class="select-col">
-                                                <select class="form-select form-select-lg currency">
-                                                    <option value="BTC" selected>BTC</option>
-                                                    <option value="ETH">ETH</option>
-                                                    <option value="ADA">ADA</option>
-                                                    <option value="USDT">USDT</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-2">
-                                    <button type="button" class="btn btn-primary btn-lg btn-block"
-                                        data-bs-dismiss="modal">Send</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- * Send Action Sheet-->
         <!-- Transactions -->
         <div class="section mt-4" id="transactions-section" style="display: none;">
             <div class="section-heading">
@@ -275,102 +241,27 @@
                 <a href="crypto-transactions.html" class="link">Voir tout</a>
             </div>
             <div>
-                <div class="btn-group" role="group">
-                    <div class="btn-group" role="group">
-                        <input type="radio" class="btn-check" name="btnradioGroup1" id="btnradio1" checked>
-                        <label class="btn btn-outline-primary" for="btnradio1">Tous</label>
-                        <input type="radio" class="btn-check" name="btnradioGroup1" id="btnradio2">
-                        <label class="btn btn-outline-success" for="btnradio2">Entrée</label>
-                        <input type="radio" class="btn-check" name="btnradioGroup1" id="btnradio3">
-                        <label class="btn btn-outline-danger" for="btnradio3">Sortie</label>
-                    </div>
-                    <div class="mt-1"></div>
-                </div>
+                <div class="mt-1"></div>
                 <div class="card">
+                    <!-- Détails des transactions ici -->
                 </div>
-                <ul class="listview flush transparent no-line image-listview detailed-list mt-1 mb-1 "
-                    id="transactions-list">
-                    <!-- item -->
-                    <li>
-                        <a href="#" class="item">
-                            <div class="icon-box bg-success">
-                                <ion-icon name="arrow-up-outline"></ion-icon>
-                            </div>
-                            <div class="in">
-                                <div>
-                                    <strong>Bitcoin</strong>
-                                    <div class="text-small text-secondary">Sell</div>
-                                </div>
-                                <div class="text-end">
-                                    <strong>$855,24</strong>
-                                    <div class="text-small">
-                                        Today 11:38 AM
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <!-- * item -->
-                    <!-- item -->
-                    <li>
-                        <a href="#" class="item">
-                            <div class="icon-box bg-warning">
-                                <ion-icon name="arrow-down-outline"></ion-icon>
-                            </div>
-                            <div class="in">
-                                <div>
-                                    <strong>Etherium</strong>
-                                    <div class="text-small text-secondary">Buy</div>
-                                </div>
-                                <div class="text-end">
-                                    <strong>$40,68</strong>
-                                    <div class="text-small">
-                                        March 8, 2021
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <!-- * item -->
-                    <!-- item -->
-                    <li>
-                        <a href="#" class="item">
-                            <div class="icon-box bg-secondary">
-                                <ion-icon name="swap-vertical-outline"></ion-icon>
-                            </div>
-                            <div class="in">
-                                <div>
-                                    <strong>Tether</strong>
-                                    <div class="text-small text-secondary">Trade</div>
-                                </div>
-                                <div class="text-end">
-                                    <strong>$2.405,48</strong>
-                                    <div class="text-small">
-                                        February 24, 2021
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <!-- * item -->
+                <ul class="listview flush transparent no-line image-listview detailed-list mt-1 mb-1" id="transactions-list">
+                    <!-- Transactions dynamiques ici -->
                 </ul>
             </div>
         </div>
         <!-- Transactions -->
         <!--Component Dialog-->
-        <div class="modal fade dialogbox" id="DialogSessionExpired" data-bs-backdrop="static" tabindex="-1"
-            role="dialog">
+        <div class="modal fade dialogbox" id="alertModal" data-bs-backdrop="static" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-icon text-danger">
-                        <ion-icon name="close-circle"></ion-icon>
+                    <div class="modal-icon" id="alertModalIcon">
+                        <ion-icon name="information-circle"></ion-icon>
                     </div>
                     <div class="modal-header">
-                        <h5 class="modal-title">Session Expirée</h5>
+                        <h5 class="modal-title" id="alertModalTitle">Info</h5>
                     </div>
-                    <div class="modal-body">
-                        Votre session a expiré. Vous allez être redirigé vers la page de connexion.
-                    </div>
+                    <div class="modal-body" id="alertModalMessage">Ceci est un message d'information.</div>
                     <div class="modal-footer">
                         <div class="btn-inline">
                             <a href="#" class="btn" data-bs-dismiss="modal">FERMER</a>
@@ -379,90 +270,8 @@
                 </div>
             </div>
         </div>
-        <!-- Component-->
-        <div class="modal fade dialogbox" id="DialogIconedSuccess" data-bs-backdrop="static" tabindex="-1"
-            role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-icon text-success">
-                        <ion-icon name="checkmark-circle"></ion-icon>
-                    </div>
-                    <div class="modal-header">
-                        <h5 class="modal-title">Success</h5>
-                    </div>
-                    <div class="modal-body">
-                        Forfait souscrit avec succès !
-                    </div>
-                    <div class="modal-footer">
-                        <div class="btn-inline">
-                            <a href="#" class="btn" data-bs-dismiss="modal">CLOSE</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal Error -->
-        <div class="modal fade dialogbox" id="DialogIconedError" data-bs-backdrop="static" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-icon text-danger">
-                        <ion-icon name="alert-circle"></ion-icon>
-                    </div>
-                    <div class="modal-header">
-                        <h5 class="modal-title">Erreur</h5>
-                    </div>
-                    <div class="modal-body" id="errorModalMessage">
-                        Une erreur est survenue.
-                    </div>
-                    <div class="modal-footer">
-                        <div class="btn-inline">
-                            <a href="#" class="btn" data-bs-dismiss="modal">FERMER</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Dialog Success -->
-        <div class="modal fade dialogbox" id="DialogSuccess" data-bs-backdrop="static" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-icon text-success">
-                        <ion-icon name="checkmark-circle"></ion-icon>
-                    </div>
-                    <div class="modal-header">
-                        <h5 class="modal-title">Succès</h5>
-                    </div>
-                    <div class="modal-body">
-                        Retrait initié avec succès ou en cours de traitement pour 24h.
-                    </div>
-                    <div class="modal-footer">
-                        <div class="btn-inline">
-                            <a href="#" class="btn" data-bs-dismiss="modal">FERMER</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!--Component Dialog-->
 
-        <!-- Modal Error -->
-        <div class="modal fade dialogbox" id="DialogError" data-bs-backdrop="static" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-icon text-danger">
-                        <ion-icon name="alert-circle"></ion-icon>
-                    </div>
-                    <div class="modal-header">
-                        <h5 class="modal-title">Erreur</h5>
-                    </div>
-                    <div class="modal-body" id="errorModalMessage">Une erreur est survenue.</div>
-                    <div class="modal-footer">
-                        <div class="btn-inline">
-                            <a href="#" class="btn" data-bs-dismiss="modal">FERMER</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- Slider -->
         <div class="section mt-4 full">
             <div class="carousel-single splide">
@@ -756,18 +565,19 @@
         })</script>
 
 <script>
-
+// Récupérer le token depuis le stockage local
 const token = localStorage.getItem('authToken');
+
+// Événement déclenché lorsque le DOM est chargé
 document.addEventListener('DOMContentLoaded', () => {
     getUserProfile();
     fetchTransactions();
 });
 
+/**
+ * Fonction pour récupérer et afficher le profil utilisateur
+ */
 async function getUserProfile() {
-    
-
-  
-
     try {
         const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/user/profile', {
             method: 'GET',
@@ -777,101 +587,95 @@ async function getUserProfile() {
             },
         });
 
+        // Vérification de la réponse
         if (!response.ok) {
             if (response.status === 403) {
-                //alert('Session invalide ou expirée. Vous allez être redirigé.');
-                localStorage.removeItem('authToken'); // Supprime le token invalide
-
-                // Si le token est manquant, afficher un modal de session expirée
-                     const modalExpired = new bootstrap.Modal(document.getElementById('DialogSessionExpired'));
-
-                    // Afficher le modal
-                    modalExpired.show();
-                    return;
-                //window.location.href = 'component-fullpage-slider.html'; // Redirige vers le slider
-               // return;
+                handleInvalidSession();
+                return;
             }
             throw new Error('Erreur lors de la récupération du profil utilisateur.');
         }
 
+        // Récupérer les données utilisateur
         const userData = await response.json();
 
-//Copié le lien --------------------------------------------------------------------------
 
+        const userBalance = document.getElementById('userBalance');
+        const userBalance1 = document.getElementById('userBalance1');
+        const userReferralBalance = document.getElementById('userReferralBalance');
+        const userName = document.getElementById('userName');
+        const userPhone = document.getElementById('userPhone');
+        const totalwithdraw = document.getElementById('totalwithdraw');
+        TotalWithdraw
 
-
-    const userReferralCode = userData.referral_code; // Remplacez ceci par la logique qui récupère le code de parrainage de l'utilisateur
-    const currentUrl = "http://127.0.0.1:5500/HTML/app-register.html?userReferralCode=NOKMISDESONG-KNHCDM";
-    const shareLink = document.getElementById("shareLink");
-    // Ajoute le code de parrainage à l'URL actuelle
-    const shareUrl = `${currentUrl}?userReferralCode=${userReferralCode}`;
-
-    // Met à jour l'attribut href du lien
-    shareLink.href = shareUrl;
-
-    // Ajouter un gestionnaire d'événement pour rendre le lien copiable
-    shareLink.addEventListener("click", function(event) {
-        event.preventDefault(); // Empêche le comportement par défaut du lien
-        
-        // Crée un élément de champ de texte temporaire pour copier l'URL
-        const tempInput = document.createElement("input");
-        tempInput.value = shareUrl;
-        document.body.appendChild(tempInput);
-        
-        // Sélectionner et copier l'URL dans le presse-papiers
-        tempInput.select();
-        document.execCommand("copy");
-
-        // Supprimer l'élément temporaire
-        document.body.removeChild(tempInput);
-
-        // Afficher un message de confirmation (optionnel)
-        alert("Lien copié dans le presse-papiers !");
-    });
-
-
-
-//Copié le lien --------------------------------------------------------------------------
+        userBalance.innerHTML = userData.balance  + " FCFA";
+        userBalance1.innerHTML = userData.balance  + " FCFA";
+        userReferralBalance.innerHTML = userData.referral_balance  + " FCFA";
+        userName.innerHTML = userData.name;
+        userPhone.innerHTML = userData.phone_number;
+        totalwithdraw.innerHTML = userData.TotalWithdraw + " FCFA"
 
 
 
 
-        // Affichage des données utilisateur
-        document.getElementById('userName').textContent = userData.name;
-        document.getElementById('userPhone').textContent = userData.phone_number;
-        document.getElementById('userBalance').textContent = userData.balance + ' FCFA';
-        document.getElementById('userBalance1').textContent = userData.balance + ' FCFA';
-        document.getElementById('userReferralBalance').textContent = userData.referral_balance + ' FCFA';
-
+        handleUserProfile(userData);
     } catch (error) {
         console.error('Erreur:', error.message);
-        //alert('Impossible de récupérer les informations utilisateur.');
     }
 }
 
-    async function fetchTransactions() {
-    const token = localStorage.getItem('authToken');
-    const transactionsSection = document.getElementById('transactions-section');
-    const transactionsList = document.getElementById('transactions-list');
+/**
+ * Gère les données du profil utilisateur
+ * @param {Object} userData - Données utilisateur récupérées
+ */
+function handleUserProfile(userData) {
+    const userReferralCode = userData.referral_code;
+    const currentUrl = "http://127.0.0.1:5500/HTML/app-register.html";
+    const shareLink = document.getElementById("shareLink");
 
-    if (!token) {
-        //alert('Session invalide ou expirée. Vous allez être redirigé.');
-        localStorage.removeItem('authToken'); // Supprime le token invalide
+    // Construire l'URL de parrainage
+    const shareUrl = `${currentUrl}?userReferralCode=${userReferralCode}`;
+    shareLink.href = shareUrl;
 
-// Si le token est manquant, afficher un modal de session expirée
-     const modalExpired = new bootstrap.Modal(document.getElementById('DialogSessionExpired'));
+    // Ajouter un gestionnaire pour copier le lien
+    shareLink.addEventListener("click", (event) => {
+        event.preventDefault();
+        copyToClipboard(shareUrl);
+    });
+}
 
-    // Afficher le modal
+/**
+ * Gère les sessions invalides ou expirées
+ */
+function handleInvalidSession() {
+    localStorage.removeItem('authToken'); // Supprime le token invalide
+    const modalExpired = new bootstrap.Modal(document.getElementById('DialogSessionExpired'));
     modalExpired.show();
 
-    // Optionnel : Rediriger après un délai de 3 secondes
+    // Redirection après 3 secondes
     setTimeout(() => {
-        window.location.href = 'component-fullpage-slider.html';
+        window.location.href = 'component-fullpage-slider.html'; // Remplacez par l'URL de votre page de connexion
     }, 3000);
+}
 
-    return;
-    }
+/**
+ * Copie une URL dans le presse-papier
+ * @param {string} url - URL à copier
+ */
+function copyToClipboard(url) {
+    const tempInput = document.createElement("input");
+    tempInput.value = url;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    alert('Lien copié dans le presse-papier.');
+}
 
+/**
+ * Fonction pour récupérer les transactions
+ */
+async function fetchTransactions() {
     try {
         const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/transaction/history', {
             headers: { Authorization: `Bearer ${token}` },
@@ -879,56 +683,94 @@ async function getUserProfile() {
 
         if (!response.ok) {
             if (response.status === 403) {
-                // Redirige vers le slider si une erreur 403 est rencontrée
-                alert('Accès refusé. Vous allez être redirigé vers la page de connexion.');
-                window.location.href = 'component-fullpage-slider.html';
+                handleInvalidSession();
                 return;
             }
             throw new Error('Erreur lors de la récupération des transactions.');
         }
 
         const transactions = await response.json();
+        const transactionsSection = document.getElementById('transactions-section');
 
         if (transactions.length > 0) {
             transactionsSection.style.display = 'block';
             displayTransactions(transactions);
         } else {
             transactionsSection.style.display = 'none';
-            console.log('Aucune transaction trouvée');
+            console.log('Aucune transaction trouvée.');
         }
     } catch (error) {
         console.error('Erreur:', error.message);
     }
 }
 
-function displayTransactions(transactions) {
+/**
+ * Fonction pour afficher les transactions dans une liste
+ * @param {Array} transactions - Liste des transactions
+ */
+ function displayTransactions(transactions) {
     const transactionsList = document.getElementById('transactions-list');
-    transactionsList.innerHTML = ''; // Nettoyer la liste avant d'ajouter les transactions
+    transactionsList.innerHTML = ''; // Nettoyer la liste
 
-    // Trier les transactions par date (du plus récent au plus ancien)
+    // Traductions des types de transaction
+    const typeTranslations = {
+        deposit: 'Dépôt d\'argent',
+        withdrawal: 'Retrait',
+        package_purchase: 'Achat de forfait',
+    };
+
+    // Traductions des statuts de transaction
+    const statusTranslations = {
+        completed: 'Terminé',
+        pending: 'En attente',
+        failed: 'Échoué',
+    };
+
+    // Gestion des couleurs pour les statuts
+    const statusColors = {
+        completed: 'text-success',
+        pending: 'text-warning',
+        failed: 'text-danger',
+    };
+
+    // Trier par date (du plus récent au plus ancien)
     transactions.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-    // Prendre seulement les 3 premières transactions après tri
+    // Afficher les 3 premières transactions
     const recentTransactions = transactions.slice(0, 3);
 
     recentTransactions.forEach((transaction) => {
         const listItem = document.createElement('li');
         let iconClass, iconName;
 
-        if (transaction.type === 'deposit') {
-            iconClass = 'bg-success';
-            iconName = 'arrow-up-outline';
-        } else if (transaction.type === 'withdraw') {
-            iconClass = 'bg-danger';
-            iconName = 'arrow-down-outline';
-        } else if (transaction.type === 'package_purchase') {
-            iconClass = 'bg-secondary';
-            iconName = 'swap-vertical-outline';
-        } else {
-            iconClass = 'bg-primary';
-            iconName = 'help-outline';
+        // Déterminer l'icône et la classe en fonction du type de transaction
+        switch (transaction.type) {
+            case 'deposit':
+                iconClass = 'bg-success';
+                iconName = 'arrow-up-outline';
+                break;
+            case 'withdrawal':
+                iconClass = 'bg-danger';
+                iconName = 'arrow-down-outline';
+                break;
+            case 'package_purchase':
+                iconClass = 'bg-secondary';
+                iconName = 'swap-vertical-outline';
+                break;
+            default:
+                iconClass = 'bg-primary';
+                iconName = 'help-outline';
+                break;
         }
 
+        // Traduire et appliquer la couleur du statut
+        const statusClass = statusColors[transaction.status] || 'text-secondary';
+        const statusLabel = statusTranslations[transaction.status] || 'Inconnu';
+
+        // Traduire le type de transaction
+        const typeLabel = typeTranslations[transaction.type] || 'Type inconnu';
+
+        // Ajouter les détails de la transaction à l'élément HTML
         listItem.innerHTML = `
             <a href="#" class="item">
                 <div class="icon-box ${iconClass}">
@@ -941,14 +783,16 @@ function displayTransactions(transactions) {
                     </div>
                     <div class="text-end">
                         <strong>${transaction.amount || '0'} FCFA</strong>
-                        <div class="text-small">${new Date(transaction.createdAt).toLocaleString("fr-FR", {
-                          weekday: "short",
-                          day: "numeric",
-                          month: "short",
-                          year: "numeric",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}</div>
+                        <div class="text-small">
+                            ${new Date(transaction.createdAt).toLocaleString("fr-FR", {
+                                weekday: "short",
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                            })}
+                        </div>
                     </div>
                 </div>
             </a>
@@ -958,66 +802,169 @@ function displayTransactions(transactions) {
         transactionsList.appendChild(listItem);
     });
 }
-
-
-document.getElementById('withdrawButton').addEventListener('click', async () => {
-
     
-    const operatorNumber = document.getElementById('phoneNumber').value.trim();
-    const amount = document.getElementById('amount').value.trim();
 
-    if (!phoneNumber || !amount) {
-        alert('Veuillez remplir tous les champs.');
-        return;
+
+/**
+ * Fonction pour enclencher les retraits
+ *  */
+
+ document.getElementById('withdrawButton').addEventListener('click', async () => {
+  const operatorNumber = document.getElementById('phoneNumber').value;
+  let amount = document.getElementById('amount').value;
+
+  // Conversion de amount en number
+  amount = Number(amount);
+
+  if (isNaN(amount) || amount <= 0) {
+    showAlert('info', 'Veuillez entrer un montant valide.');
+    return;
+  }
+
+  if (isNaN(amount) || amount < 2000) {
+    showAlert('info', 'le montant minimal est de 2000 FCFA.');
+    return;
+  }
+  try {
+    const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/transaction/withdraw', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` // Ajout du token dans les en-têtes
+      },
+      body: JSON.stringify({ amount,operatorNumber }) // Correspondance des champs envoyés
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      showAlert('success', 'Votre demande de retrait réeussi avec succès !');
+
+      // Redirection après 3 secondes
+    setTimeout(() => {
+        window.location.href = 'index.html'; // Remplacez par l'URL de votre page de connexion
+    }, 3000);
+    } else {
+      const errorData = await response.json();
+      console.error('Erreur lors du retrait :', errorData.message);
+      showAlert('error', 'Erreur lors du retrait : ' + errorData.message);
     }
+  } catch (error) {
+    console.error('Erreur réseau ou serveur :', error);
+    showAlert('error', 'Une erreur est survenue. Veuillez réessayer.');
 
-    if (isNaN(amount) || amount <= 0) {
-        alert('Veuillez entrer un montant valide.');
-        return;
-    }
-
-    if (!/^\d+$/.test(operatorNumber)) {
-        alert('Veuillez entrer un numéro de téléphone valide.');
-        return;
-    }
-
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-        alert('Votre session a expiré. Veuillez vous reconnecter.');
-        return;
-    }
-
-    try {
-        const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/transaction/withdraw', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` // Ajouter le token si l'API est sécurisée
-            },
-            body: JSON.stringify({ operatorNumber, amount })
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            const modalSuccess = new bootstrap.Modal(document.getElementById('DialogIconedSuccess'));
-            modalSuccess.show();
-        } else {
-            const errorData = await response.json();
-            const errorModalMessage = document.getElementById('errorModalMessage');
-                    errorModalMessage.textContent = "Une erreur est survenue. Veuillez réessayer plus tard.";
-                    const errorModal = new bootstrap.Modal(document.getElementById('DialogIconedError'));
-                    errorModal.show();
-        }
-    } catch (error) {
-        console.error('Erreur lors de la demande de retrait:', error);
-        alert('Une erreur est survenue. Veuillez réessayer.');
-    }
+  }
 });
 
 
 
+/**
+ * Fonction pour enclencher les dépots
+ */
+ document.getElementById('buttondeposit').addEventListener('click', async (event) => {
+    event.preventDefault(); // Empêche le comportement par défaut du bouton
 
-    
+    // Récupération des valeurs des champs
+    const phoneNumber = document.getElementById('phone').value.trim();
+    let amount = document.getElementById('depositAmount').value.trim();
+    const operatorTransactionId = document.getElementById('transactionId').value.trim();
+    amount = parseFloat(amount);
+    userId = localStorage.getItem('userId');
+
+    // Validation simple
+    if (!phoneNumber || !amount || !operatorTransactionId) {
+        showAlert('info', 'Tous les champs doivent être remplis');
+        return;
+    }
+
+    if (amount <= 0) {
+        showAlert('info', 'Veuillez insérer un montant valide');
+
+        return; // Stopper l'exécution si le montant est invalide
+    }
+
+    if (amount < 2000) {
+        showAlert('info', 'Le montant minimal est de 5000 FCFA');
+        return; // Stopper l'exécution si le montant est trop faible
+    }
+
+    const operatorTransactionIdRegex = /^[A-Z]{2}\d{6}\.\d{4}\.[A-Z0-9]{6}$|^\d{10,11}$/;
+    if (!operatorTransactionIdRegex.test(operatorTransactionId)) {
+        showAlert('info', 'Format ID invalide');
+
+        return; // Stopper l'exécution si l'ID de transaction est invalide
+    }
+
+    try {
+        // Envoi des données à la route via fetch
+        const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/transaction/init-deposit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({amount, operatorTransactionId,userId }),
+        });
+
+        // Gestion de la réponse
+        const result = await response.json();
+
+        if (response.ok) {
+            showAlert('Succès','Dépôt réussi : ' + result.message);
+
+            // Redirection après 3 secondes
+            setTimeout(() => {
+             window.location.href = 'index.html'; // Remplacez par l'URL de votre page de connexion
+                     }, 3000);
+
+        } else {
+            showAlert('error','Erreur lors du dépôt : ' + result.message);
+
+        }
+    } catch (error) {
+        alert('Erreur de connexion au serveur : ' + error.message);
+    }
+});
+
+
+/**
+ * Fonction pour Message d'alerte
+ */
+ function showAlert(type, message) {
+    // Sélectionner les éléments de la modal
+    const modalTitle = document.getElementById('alertModalTitle');
+    const modalMessage = document.getElementById('alertModalMessage');
+    const modalIcon = document.getElementById('alertModalIcon');
+
+    // Personnaliser la modal en fonction du type
+    switch (type) {
+        case 'success':
+            modalTitle.textContent = 'Succès';
+            modalMessage.textContent = message;
+            modalIcon.innerHTML = '<ion-icon name="checkmark-circle"></ion-icon>';
+            modalIcon.className = 'modal-icon text-success';
+            break;
+
+        case 'error':
+            modalTitle.textContent = 'Erreur';
+            modalMessage.textContent = message;
+            modalIcon.innerHTML = '<ion-icon name="alert-circle"></ion-icon>';
+            modalIcon.className = 'modal-icon text-danger';
+            break;
+
+        case 'info':
+        default:
+            modalTitle.textContent = 'Info';
+            modalMessage.textContent = message;
+            modalIcon.innerHTML = '<ion-icon name="information-circle"></ion-icon>';
+            modalIcon.className = 'modal-icon text-primary';
+            break;
+    }
+
+    // Afficher la modal
+    const modal = new bootstrap.Modal(document.getElementById('alertModal'));
+    modal.show();
+}
+
+
 
     </script>
 </body>
