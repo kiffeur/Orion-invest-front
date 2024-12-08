@@ -207,8 +207,6 @@
         </div>
     </div>
     <!-- * Terms Modal -->
-
-
     <!-- ========= JS Files =========  -->
     <!-- Bootstrap -->
     <script src="assets/js/lib/bootstrap.bundle.min.js"></script>
@@ -220,39 +218,31 @@
     <script src="assets/js/base.js"></script>
 
     <!-- Script de l'api-->
-     <!-- 674895876 -->
+
+
     <script>
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault(); // Empêche la redirection par défaut
-
-
-
-    document.addEventListener("DOMContentLoaded", function() {
-    // Fonction pour récupérer un paramètre d'URL par son nom
+      document.addEventListener("DOMContentLoaded", function () {
+    /**
+     * Fonction pour récupérer un paramètre d'URL par son nom
+     * @param {string} name - Nom du paramètre à récupérer
+     * @returns {string|null} - Valeur du paramètre ou null s'il n'existe pas
+     */
     function getUrlParameter(name) {
         const regex = new RegExp('[?&]' + name + '=([^&#]*)');
         const results = regex.exec(window.location.href);
-        if (results === null) {
-            return null;  // Si le paramètre n'est pas trouvé, retourne null
-        } else {
-            return decodeURIComponent(results[1].replace(/\+/g, ' '));  // Décodage du paramètre
-        }
+        return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
 
     // Récupérer la valeur de 'userReferralCode' depuis l'URL
     const userReferralCode = getUrlParameter('userReferralCode');
-    
-    // Vérification dans la console
-    console.log("Code de parrainage récupéré :", userReferralCode); // Log pour voir la valeur récupérée
+    console.log("Code de parrainage récupéré :", userReferralCode);
 
-    // Si un code est trouvé dans l'URL, le placer dans le champ de texte
+    // Insérer le code de parrainage dans le champ de texte si trouvé
     if (userReferralCode) {
         const inputField = document.getElementById('membershipCode');
-        
-        // Vérification de la présence du champ
         if (inputField) {
-            inputField.value = userReferralCode;
-            console.log("Le code d'adhésion a été inséré dans le champ."); // Log pour vérifier que l'input a été modifié
+            inputField.innerHTML = userReferralCode;
+            console.log("Le code d'adhésion a été inséré dans le champ.");
         } else {
             console.log("Erreur : champ d'entrée non trouvé.");
         }
@@ -261,77 +251,69 @@
     }
 });
 
+// Gestion de la soumission du formulaire d'inscription
+document.getElementById('registerForm').addEventListener('submit', async (e) => {
+    e.preventDefault(); // Empêche la redirection par défaut
 
+    // Récupérer les données saisies dans le formulaire
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const countryCode = document.getElementById('countryCode').value.trim();
+    const phone_number = document.getElementById('phone').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const confirmPassword = document.getElementById('confirmPassword').value.trim();
+    const referrer_code = document.getElementById('membershipCode').value.trim();
+    const termsAccepted = document.getElementById('terms').checked;
 
-            // Récupérer les données saisies dans le formulaire
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const countryCode = document.getElementById('countryCode').value.trim();
-            const phone_number = document.getElementById('phone').value.trim();
-            const password = document.getElementById('password').value.trim();
-            const confirmPassword = document.getElementById('confirmPassword').value.trim();
-            const referrer_code = document.getElementById('membershipCode').value.trim();
-            const termsAccepted = document.getElementById('terms').checked;
-    
-            // Validation de base
-            if (!name || !email || !phone_number || !password || !confirmPassword || !termsAccepted) {
-                showAlert('info',`Veuillez remplir tous les champs et accepter les termes et conditions.`);
+    // Validation de base
+    if (!name || !email || !phone_number || !password || !confirmPassword || !termsAccepted) {
+        showAlert('info', "Veuillez remplir tous les champs et accepter les termes et conditions.");
+        return;
+    }
+    if (password !== confirmPassword) {
+        showAlert('info', "Les mots de passe ne correspondent pas.");
+        return;
+    }
 
-                return;
-            }
-            if (password !== confirmPassword) {
-                showAlert('info',`Les mots de passe ne correspondent pas.`);
+    // Construire le corps de la requête
+    const data = {
+        name,
+        email,
+        phone_number,
+        password,
+        referrer_code,
+    };
 
-                return;
-            }
-    
-            // Construire le corps de la requête
-            const data = {
-                name,
-                email,
-                phone_number,
-                password,
-                referrer_code,
-            };
-    
-            try {
-                // Envoyer les données à l'API via une requête POST
-                const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/auth/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    'Access-Control-Allow-Origin': '*', // Permet d'indiquer l'origine autorisée, bien que ce soit géré côté serveur
-                    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', // Méthodes permises, aussi côté serveur
-                    body: JSON.stringify(data),
-                });
-    
-                // Gérer la réponse
-                const result = await response.json();
-                if (response.ok) {
-
-                    showAlert('Succès',`Inscription réeussi avec succès`);
-                    // Rediriger l'utilisateur après 2 secondes (ou toute autre durée que vous préférez)
-                    setTimeout(() => {
-                     window.location.href = 'app-login.html';
-                    }, 3000); // Temps en millisecondes, ici 2000ms = 2 secondes
-                    }
-
-                                else {
-                                    showAlert('error',`Un problème est survenu , veuillez réessayer`);
-
-            }
-
-            } catch (error) {
-                console.error("Erreur lors de l'envoi des données :", error);
-                showAlert('error',`Erreur : ${error.message}`);
-            }
-
+    try {
+        // Envoyer les données à l'API via une requête POST
+        const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
         });
 
+        // Gérer la réponse
+        const result = await response.json();
+        if (response.ok) {
+            showAlert('success', "Inscription réussie avec succès !");
+            setTimeout(() => {
+                window.location.href = 'app-login.html';
+            }, 3000); // Redirection après 3 secondes
+        } else {
+            showAlert('error', "Un problème est survenu, veuillez réessayer.");
+        }
+    } catch (error) {
+        console.error("Erreur lors de l'envoi des données :", error);
+        showAlert('error', `Erreur : ${error.message}`);
+    }
+});
+
 /**
- * Fonction pour Message d'alerte
+ * Fonction pour afficher un message d'alerte dans une modal
+ * @param {string} type - Type d'alerte ('success', 'error', 'info')
+ * @param {string} message - Message à afficher
  */
- function showAlert(type, message) {
-    // Sélectionner les éléments de la modal
+function showAlert(type, message) {
     const modalTitle = document.getElementById('alertModalTitle');
     const modalMessage = document.getElementById('alertModalMessage');
     const modalIcon = document.getElementById('alertModalIcon');
@@ -361,10 +343,8 @@
             break;
     }
 
-    // Afficher la modal
-    const modal = new bootstrap.Modal(document.getElementById('alertModal'));
-    modal.show();
 }
+
 
     </script>
     
