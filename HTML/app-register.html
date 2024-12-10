@@ -241,7 +241,7 @@
     if (userReferralCode) {
         const inputField = document.getElementById('membershipCode');
         if (inputField) {
-            inputField.innerHTML = userReferralCode;
+            inputField.value = userReferralCode;
             console.log("Le code d'adhésion a été inséré dans le champ.");
         } else {
             console.log("Erreur : champ d'entrée non trouvé.");
