@@ -1,7 +1,7 @@
 {
-    "name": "PaySpark",
-    "short_name": "Finapp",
-    "start_url": "PaySpark",
+    "name": "Orion invest",
+    "short_name": "Orion",
+    "start_url": "Orion",
     "display": "standalone",
     "scope" : "/",
     "background_color": "#000000",

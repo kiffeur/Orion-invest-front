@@ -8,8 +8,8 @@ body {
   font-size: 15px;
   line-height: 1.6rem;
   letter-spacing: 0.004em;
-  color: #958d9e;
-  background: #EDEDF5;
+  color: #766f7e;
+  background: #756728;
   width: 100%;
   height: 100%;
   overflow-x: hidden;
@@ -5077,7 +5077,7 @@ textarea,
 }
 
 .section-heading .link {
-  color: rgba(98, 54, 255, 0.5);
+  color: rgba(255, 200, 50, 0.5);
   font-size: 13px;
   font-weight: 500;
 }
