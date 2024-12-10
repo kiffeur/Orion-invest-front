@@ -1,7 +1,7 @@
 {
     "name": "Orion invest",
     "short_name": "Orion",
-    "start_url": "Orion",
+    "start_url": "/component-fullpage-slider.html",
     "display": "standalone",
     "scope" : "/",
     "background_color": "#000000",
