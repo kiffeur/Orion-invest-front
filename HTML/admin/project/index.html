@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interface Admin - Transactions</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo-space">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z"/>
+            </svg>
+            <span class="logo-text">Orion-invest</span>
+        </div>
+        
+        <div class="header">
+            <div class="tab-switcher">
+                <button class="tab-button active" data-tab="deposits">Dépôts</button>
+                <button class="tab-button" data-tab="withdrawals">Retraits</button>
+            </div>
+            <div class="search-container">
+                <input 
+                    type="search" 
+                    id="searchInput" 
+                    placeholder="Rechercher par nom ou numéro..." 
+                    class="search-input"
+                >
+            </div>
+            <button class="refresh-button" onclick="refreshData()">
+                <svg class="refresh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/>
+                </svg>
+                Actualiser
+            </button>
+        </div>
+
+        <div id="deposits-section" class="transactions-section active">
+            <div id="deposits-list" class="transactions-list">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+
+        <div id="withdrawals-section" class="transactions-section">
+            <div id="withdrawals-list" class="transactions-list">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
