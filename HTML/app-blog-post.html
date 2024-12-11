@@ -336,12 +336,17 @@
 
 
 
-    function showAlert(type, message) {
+    /**
+ * Fonction pour afficher un message d'alerte dans une modal
+ * @param {string} type - Type d'alerte ('success', 'error', 'info')
+ * @param {string} message - Message à afficher
+ */
+ function showAlert(type, message) {
     const modalTitle = document.getElementById('alertModalTitle');
     const modalMessage = document.getElementById('alertModalMessage');
     const modalIcon = document.getElementById('alertModalIcon');
 
-    // Personnaliser la modal en fonction du type
+    // Modifier le contenu de la modal en fonction du type
     switch (type) {
         case 'success':
             modalTitle.textContent = 'Succès';
@@ -366,6 +371,9 @@
             break;
     }
 
+    // Initialiser et afficher le modal
+    const alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+    alertModal.show();
 }
 
 

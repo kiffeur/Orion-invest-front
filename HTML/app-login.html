@@ -52,7 +52,7 @@
         <div class="mb-1"></div>
         <br>
         <div class="section mt-2 text-left">
-            <h2>Encire heureux de vous revoir :)</h2>
+            <h2>Encore heureux de vous revoir :)</h2>
             <h6>Veuillez entrer vos informations de connexion</h6>
         </div>
         <div class="section mb-5 p-2">
@@ -147,9 +147,12 @@ form.addEventListener('submit', async (e) => {
     const phone = document.getElementById('phone1').value.trim();
     const password = document.getElementById('password1').value.trim();
 
+    // Sélectionner le bouton de soumission
+    const submitButton = document.querySelector('#submit'); // Assurez-vous que l'ID du bouton est correct
+
     // Vérifier si les champs sont remplis
     if (!phone || !password) {
-        alert('Tous les champs doivent être remplis');
+        showAlert('info', 'Tous les champs doivent être remplis.');
         return;
     }
 
@@ -160,6 +163,10 @@ form.addEventListener('submit', async (e) => {
     };
 
     try {
+        // Désactiver le bouton et afficher "Connexion en cours..."
+        submitButton.disabled = true;
+        submitButton.textContent = "Connexion en cours...";
+
         // Envoie la requête POST au serveur
         const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/auth/login', {
             method: 'POST',
@@ -186,9 +193,17 @@ form.addEventListener('submit', async (e) => {
             throw new Error('Token non reçu.');
         }
     } catch (error) {
-        alert(`Erreur : ${error.message}`);
+        console.error("Erreur lors de l'authentification :", error);
+        showAlert('error', `Erreur : ${error.message}`);
+    } finally {
+        // Réactiver le bouton et remettre le texte initial
+        submitButton.disabled = false;
+        submitButton.textContent = "Se connecter";
     }
 });
+
+
+
 
 // Fonction pour récupérer le profil utilisateur
 async function getUserProfile() {

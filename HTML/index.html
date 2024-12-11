@@ -817,58 +817,72 @@ async function fetchTransactions() {
  *  */
 
  document.getElementById('withdrawButton').addEventListener('click', async () => {
-  const operatorNumber = document.getElementById('phoneNumber').value;
-  let amount = document.getElementById('amount').value;
+    const withdrawButton = document.getElementById('withdrawButton');
+    const operatorNumber = document.getElementById('phoneNumber').value.trim();
+    let amount = document.getElementById('amount').value.trim();
 
-  // Conversion de amount en number
-  amount = Number(amount);
+    // Conversion de amount en nombre
+    amount = Number(amount);
 
-  if (isNaN(amount) || amount <= 0) {
-    showAlert('info', 'Veuillez entrer un montant valide.');
-    return;
-  }
-
-  if (isNaN(amount) || amount < 2000) {
-    showAlert('info', 'le montant minimal est de 2000 FCFA.');
-    return;
-  }
-  try {
-    const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/transaction/withdraw', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` // Ajout du token dans les en-têtes
-      },
-      body: JSON.stringify({ amount,operatorNumber }) // Correspondance des champs envoyés
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      showAlert('success', 'Votre demande de retrait réeussi avec succès !');
-
-      // Redirection après 3 secondes
-    setTimeout(() => {
-        window.location.href = 'index.html'; // Remplacez par l'URL de votre page de connexion
-    }, 3000);
-    } else {
-      const errorData = await response.json();
-      console.error('Erreur lors du retrait :', errorData.message);
-      showAlert('error', 'Erreur lors du retrait : ' + errorData.message);
+    // Validation des champs
+    if (isNaN(amount) || amount <= 0) {
+        showAlert('info', 'Veuillez entrer un montant valide.');
+        return;
     }
-  } catch (error) {
-    console.error('Erreur réseau ou serveur :', error);
-    showAlert('error', 'Une erreur est survenue. Veuillez réessayer.');
 
-  }
+    if (amount < 2000) {
+        showAlert('info', 'Le montant minimal est de 2000 FCFA.');
+        return;
+    }
+
+    try {
+        // Désactiver le bouton et afficher "Patientez..."
+        withdrawButton.disabled = true;
+        withdrawButton.textContent = "Patientez...";
+
+        // Envoi de la requête au serveur
+        const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/transaction/withdraw', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Ajout du token dans les en-têtes
+            },
+            body: JSON.stringify({ amount, operatorNumber }) // Correspondance des champs envoyés
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            showAlert('success', 'Votre demande de retrait a été effectuée avec succès !');
+
+            // Redirection après 3 secondes
+            setTimeout(() => {
+                window.location.href = 'index.html'; // Remplacez par l'URL de votre page d'accueil
+            }, 3000);
+        } else {
+            const errorData = await response.json();
+            console.error('Erreur lors du retrait :', errorData.message);
+            showAlert('error', 'Erreur lors du retrait : ' + errorData.message);
+        }
+    } catch (error) {
+        console.error('Erreur réseau ou serveur :', error);
+        showAlert('error', 'Une erreur est survenue. Veuillez réessayer.');
+    } finally {
+        // Réactiver le bouton et rétablir le texte
+        withdrawButton.disabled = false;
+        withdrawButton.textContent = "Effectuer le retrait";
+    }
 });
 
 
 
+
 /**
- * Fonction pour enclencher les dépots
+ * Fonction pour enclencher les dépôts
  */
  document.getElementById('buttondeposit').addEventListener('click', async (event) => {
     event.preventDefault(); // Empêche le comportement par défaut du bouton
+
+    const depositButton = document.getElementById('buttondeposit');
 
     // Obtenir l'heure actuelle du Cameroun (UTC+1)
     const currentTime = new Date();
@@ -888,7 +902,7 @@ async function fetchTransactions() {
     let amount = document.getElementById('depositAmount').value.trim();
     const operatorTransactionId = document.getElementById('transactionId').value.trim();
     amount = parseFloat(amount);
-    userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem('userId');
 
     // Validation simple
     if (!phoneNumber || !amount || !operatorTransactionId) {
@@ -898,51 +912,56 @@ async function fetchTransactions() {
 
     if (amount <= 0) {
         showAlert('info', 'Veuillez insérer un montant valide');
-
-        return; // Stopper l'exécution si le montant est invalide
+        return;
     }
 
     if (amount < 2000) {
         showAlert('info', 'Le montant minimal est de 5000 FCFA');
-        return; // Stopper l'exécution si le montant est trop faible
+        return;
     }
 
     const operatorTransactionIdRegex = /^[A-Z]{2}\d{6}\.\d{4}\.[A-Z0-9]{6}$|^\d{10,11}$/;
     if (!operatorTransactionIdRegex.test(operatorTransactionId)) {
         showAlert('info', 'Format ID invalide');
-
-        return; // Stopper l'exécution si l'ID de transaction est invalide
+        return;
     }
 
     try {
+        // Désactiver le bouton et afficher "Patientez..."
+        depositButton.disabled = true;
+        depositButton.textContent = "Patientez...";
+
         // Envoi des données à la route via fetch
         const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/transaction/init-deposit', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({amount, operatorTransactionId,userId }),
+            body: JSON.stringify({ amount, operatorTransactionId, userId }),
         });
 
         // Gestion de la réponse
         const result = await response.json();
 
         if (response.ok) {
-            showAlert('Succès','Dépôt réussi : ' + result.message);
+            showAlert('success', 'Dépôt réussi : ' + result.message);
 
             // Redirection après 3 secondes
             setTimeout(() => {
-             window.location.href = 'index.html'; // Remplacez par l'URL de votre page de connexion
-                     }, 3000);
-
+                window.location.href = 'index.html'; // Remplacez par l'URL de votre page d'accueil
+            }, 3000);
         } else {
-            showAlert('error','Erreur lors du dépôt : ' + result.message);
-
+            showAlert('error', 'Erreur lors du dépôt : ' + result.message);
         }
     } catch (error) {
-        alert('Erreur de connexion au serveur : ' + error.message);
+        showAlert('error', 'Erreur de connexion au serveur : ' + error.message);
+    } finally {
+        // Réactiver le bouton et rétablir le texte
+        depositButton.disabled = false;
+        depositButton.textContent = "Enclencher le dépôt";
     }
 });
+
 
 
 /**

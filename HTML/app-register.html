@@ -136,27 +136,27 @@
 
     </div>
     <!-- * App Capsule -->
-<!-- Modal -->
-<!--Component Dialog-->
-<div class="modal fade dialogbox" id="alertModal" data-bs-backdrop="static" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-icon" id="alertModalIcon">
-                <ion-icon name="information-circle"></ion-icon>
-            </div>
-            <div class="modal-header">
-                <h5 class="modal-title" id="alertModalTitle">Info</h5>
-            </div>
-            <div class="modal-body" id="alertModalMessage">Ceci est un message d'information.</div>
-            <div class="modal-footer">
-                <div class="btn-inline">
-                    <a href="#" class="btn" data-bs-dismiss="modal">FERMER</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--Component Dialog-->
+                    <!-- Modal -->
+                    <!--Component Dialog-->
+                    <div class="modal fade dialogbox" id="alertModal" data-bs-backdrop="static" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-icon" id="alertModalIcon">
+                                    <ion-icon name="information-circle"></ion-icon>
+                                </div>
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="alertModalTitle">Info</h5>
+                                </div>
+                                <div class="modal-body" id="alertModalMessage">Ceci est un message d'information.</div>
+                                <div class="modal-footer">
+                                    <div class="btn-inline">
+                                        <a href="#" class="btn" data-bs-dismiss="modal">FERMER</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Component Dialog-->
 
 
     <!-- Terms Modal -->
@@ -265,6 +265,9 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     const referrer_code = document.getElementById('membershipCode').value.trim();
     const termsAccepted = document.getElementById('terms').checked;
 
+    // Sélectionner le bouton d'inscription
+    const submitButton = document.querySelector('#registerForm button[type="submit"]');
+
     // Validation de base
     if (!name || !email || !phone_number || !password || !confirmPassword || !termsAccepted) {
         showAlert('info', "Veuillez remplir tous les champs et accepter les termes et conditions.");
@@ -285,6 +288,10 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     };
 
     try {
+        // Désactiver le bouton et afficher "Patientez..."
+        submitButton.disabled = true;
+        submitButton.textContent = "Patientez...";
+
         // Envoyer les données à l'API via une requête POST
         const response = await fetch('https://lionfish-app-54bdv.ondigitalocean.app/auth/register', {
             method: 'POST',
@@ -300,11 +307,15 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
                 window.location.href = 'app-login.html';
             }, 3000); // Redirection après 3 secondes
         } else {
-            showAlert('error', "Un problème est survenu, veuillez réessayer.");
+            showAlert('error', result.message || "Un problème est survenu, veuillez réessayer.");
         }
     } catch (error) {
         console.error("Erreur lors de l'envoi des données :", error);
         showAlert('error', `Erreur : ${error.message}`);
+    } finally {
+        // Réactiver le bouton et remettre le texte initial
+        submitButton.disabled = false;
+        submitButton.textContent = "S'inscrire";
     }
 });
 
@@ -313,12 +324,12 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
  * @param {string} type - Type d'alerte ('success', 'error', 'info')
  * @param {string} message - Message à afficher
  */
-function showAlert(type, message) {
+ function showAlert(type, message) {
     const modalTitle = document.getElementById('alertModalTitle');
     const modalMessage = document.getElementById('alertModalMessage');
     const modalIcon = document.getElementById('alertModalIcon');
 
-    // Personnaliser la modal en fonction du type
+    // Modifier le contenu de la modal en fonction du type
     switch (type) {
         case 'success':
             modalTitle.textContent = 'Succès';
@@ -343,6 +354,9 @@ function showAlert(type, message) {
             break;
     }
 
+    // Initialiser et afficher le modal
+    const alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+    alertModal.show();
 }
 
 
