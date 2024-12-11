@@ -261,12 +261,10 @@ const ongoingPackagesList = document.getElementById('ongoingPackagesList');
                                 <img src="${transaction.packageImage}" alt="image" class="imaged w64"> <!-- Assure-toi que l'image a une largeur de 100% -->
                             </div>
                             <h3 class="card-title mb-1">${transaction.packageName}</h3>
-                            <div class="progress mb-2">
-                                <div class="progress-bar" role="progressbar" style="width: ${transaction.packageProgress}%"
-                                    aria-valuenow="${transaction.packageProgress}" aria-valuemin="0" aria-valuemax="100">
-                                    ${Math.round(transaction.packageProgress)}%
-                                </div>
-                            </div>
+                            <p><i class = "text-primary">${transaction.BeneficeJour} FCFA</i> tout les jours pour atteindre <strong class ="text-success"> ${transaction.TotalBenefice} FCFA</strong> </p>
+                            <button type="button" class="btn btn-success me-1 mb-1">ACTIF</button>
+
+
                         </div>
                     </div>
                 </li>

@@ -130,8 +130,11 @@ async function fetchAndDisplayPackages() {
       return;
     }
 
+
     // Génère le contenu HTML pour chaque package
     packages.forEach(pkg => {
+
+      const argentJour = pkg.price * (pkg.interestRate/100) ;
       const packageHTML = `
         <div class="col-6 mb-2">
           <a href="app-blog-post.html?id=${pkg.id}">
@@ -140,6 +143,7 @@ async function fetchAndDisplayPackages() {
               <div class="text">
                 <h4 class="title">${pkg.name}</h4>
                 <p class="price">Prix : <srtrong>${pkg.price}</srtrong> FCFA</p>
+                <p class="price"><srtrong>${argentJour}</srtrong> FCFA/jour</p>
               </div>
             </div>
           </a>
